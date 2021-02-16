@@ -14259,7 +14259,7 @@ a.anchor-link {
 <div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[18]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[36]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span>
@@ -14278,7 +14278,7 @@ a.anchor-link {
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[19]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[37]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">bs4</span>
@@ -14296,13 +14296,14 @@ a.anchor-link {
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[76]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[38]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pprint</span>
 <span class="kn">import</span> <span class="nn">typing</span> <span class="k">as</span> <span class="nn">T</span>
 
 
+<span class="c1"># In minutes</span>
 <span class="n">game_to_airtime</span><span class="p">:</span> <span class="n">T</span><span class="o">.</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">parsed</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;#games tbody tr&quot;</span><span class="p">):</span>
     <span class="n">columns</span> <span class="o">=</span> <span class="n">row</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;td&quot;</span><span class="p">)</span>
@@ -14418,7 +14419,7 @@ a.anchor-link {
  &#39;Transference&#39;: 60,
  &#39;Unknown&#39;: 90,
  &#39;VRChat&#39;: 1045,
- &#39;Valheim&#39;: 28,
+ &#39;Valheim&#39;: 124,
  &#39;Warcraft III: Reforged&#39;: 115,
  &#39;Warhammer: Chaosbane&#39;: 295,
  &#39;Welcome to the Game II&#39;: 2460,
@@ -14438,7 +14439,7 @@ a.anchor-link {
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[30]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[39]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Have to use a webdriver because SteamDB isn&#39;t scraping friendly (CloudFlare checks)</span>
@@ -14472,6 +14473,9 @@ a.anchor-link {
 
 <span class="k">def</span> <span class="nf">get_total_depot_size</span><span class="p">(</span><span class="n">webdriver</span><span class="p">:</span> <span class="n">selenium</span><span class="o">.</span><span class="n">webdriver</span><span class="o">.</span><span class="n">Remote</span><span class="p">,</span> <span class="n">depot_url</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
     <span class="n">webdriver</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">depot_url</span><span class="p">)</span>
+
+    <span class="c1"># Wait for page to load in a naive fashion</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
     <span class="n">total_size</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">webdriver</span><span class="o">.</span><span class="n">find_elements_by_css_selector</span><span class="p">(</span><span class="s2">&quot;#depots .table-responsive:first-of-type tbody tr&quot;</span><span class="p">):</span>
         <span class="n">columns</span> <span class="o">=</span> <span class="n">row</span><span class="o">.</span><span class="n">find_elements_by_tag_name</span><span class="p">(</span><span class="s2">&quot;td&quot;</span><span class="p">)</span>
@@ -14481,19 +14485,114 @@ a.anchor-link {
     <span class="k">return</span> <span class="n">total_size</span>
 
 
-<span class="n">game_to_size</span><span class="p">:</span> <span class="n">T</span><span class="o">.</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">game_to_airtime</span><span class="p">}</span>
-<span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">hours_played</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">game_to_airtime</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
-    <span class="n">steamdb_url</span> <span class="o">=</span> <span class="n">find_steamdb_url</span><span class="p">(</span><span class="n">webdriver</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">steamdb_url</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="s2">&quot;not found on SteamDB!&quot;</span><span class="p">)</span>
-        <span class="k">continue</span>
+<span class="c1"># Feel free to scrape it again, I don&#39;t want to</span>
+<span class="k">if</span> <span class="kc">False</span><span class="p">:</span>
+    <span class="c1"># In bytes</span>
+    <span class="n">game_to_size</span><span class="p">:</span> <span class="n">T</span><span class="o">.</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">game_to_airtime</span><span class="p">}</span>
+    <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">hours_played</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">game_to_airtime</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">steamdb_url</span> <span class="o">=</span> <span class="n">find_steamdb_url</span><span class="p">(</span><span class="n">webdriver</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">steamdb_url</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;(</span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">game_to_airtime</span><span class="p">)</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="s2">&quot;not found on SteamDB!&quot;</span><span class="p">)</span>
+            <span class="k">continue</span>
 
-    <span class="n">depot_url</span> <span class="o">=</span> <span class="n">get_depot_url</span><span class="p">(</span><span class="n">steamdb_url</span><span class="p">)</span>
-    <span class="n">depot_size</span> <span class="o">=</span> <span class="n">get_total_depot_size</span><span class="p">(</span><span class="n">webdriver</span><span class="p">,</span> <span class="n">depot_url</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;(</span><span class="si">{</span><span class="n">index</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">game_to_airtime</span><span class="p">)</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">steamdb_url</span><span class="p">,</span> <span class="n">depot_size</span><span class="p">)</span>
-    <span class="n">game_to_size</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">depot_size</span>
-    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+        <span class="n">depot_url</span> <span class="o">=</span> <span class="n">get_depot_url</span><span class="p">(</span><span class="n">steamdb_url</span><span class="p">)</span>
+        <span class="n">depot_size</span> <span class="o">=</span> <span class="n">get_total_depot_size</span><span class="p">(</span><span class="n">webdriver</span><span class="p">,</span> <span class="n">depot_url</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;(</span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">game_to_airtime</span><span class="p">)</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">steamdb_url</span><span class="p">,</span> <span class="n">depot_size</span><span class="p">)</span>
+        <span class="n">game_to_size</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">depot_size</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">game_to_size</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;Path of Exile&quot;</span><span class="p">:</span> <span class="mi">29589377891</span><span class="p">,</span>
+        <span class="s2">&quot;Diablo III&quot;</span><span class="p">:</span> <span class="mi">5981923060</span><span class="p">,</span>
+        <span class="s2">&quot;Just Chatting&quot;</span><span class="p">:</span> <span class="mi">26848396</span><span class="p">,</span>
+        <span class="s2">&quot;LOST ARK&quot;</span><span class="p">:</span> <span class="mi">2654020720</span><span class="p">,</span>
+        <span class="s2">&quot;Terraria&quot;</span><span class="p">:</span> <span class="mi">1847376272</span><span class="p">,</span>
+        <span class="s2">&quot;Minecraft&quot;</span><span class="p">:</span> <span class="mi">14307586923</span><span class="p">,</span>
+        <span class="s2">&quot;Darkest Dungeon&quot;</span><span class="p">:</span> <span class="mi">12066824156</span><span class="p">,</span>
+        <span class="s2">&quot;Wolcen: Lords of Mayhem&quot;</span><span class="p">:</span> <span class="mi">109170195059</span><span class="p">,</span>
+        <span class="s2">&quot;Dark Souls III&quot;</span><span class="p">:</span> <span class="mi">27630425036</span><span class="p">,</span>
+        <span class="s2">&quot;Bloons TD 6&quot;</span><span class="p">:</span> <span class="mi">2123322021</span><span class="p">,</span>
+        <span class="s2">&quot;Hades&quot;</span><span class="p">:</span> <span class="mi">27011131823</span><span class="p">,</span>
+        <span class="s2">&quot;Dark Souls II: Scholar of the First Sin&quot;</span><span class="p">:</span> <span class="mi">38751409296</span><span class="p">,</span>
+        <span class="s2">&quot;Sekiro: Shadows Die Twice&quot;</span><span class="p">:</span> <span class="mi">16108432532</span><span class="p">,</span>
+        <span class="s2">&quot;Divinity: Original Sin II&quot;</span><span class="p">:</span> <span class="mi">97066890477</span><span class="p">,</span>
+        <span class="s2">&quot;Dark Souls&quot;</span><span class="p">:</span> <span class="mi">7813699112</span><span class="p">,</span>
+        <span class="s2">&quot;Final Fantasy VII Remake&quot;</span><span class="p">:</span> <span class="mi">31346367083</span><span class="p">,</span>
+        <span class="s2">&quot;Subnautica&quot;</span><span class="p">:</span> <span class="mi">20859143166</span><span class="p">,</span>
+        <span class="s2">&quot;Welcome to the Game II&quot;</span><span class="p">:</span> <span class="mi">5767667201</span><span class="p">,</span>
+        <span class="s2">&quot;Demon&#39;s Souls&quot;</span><span class="p">:</span> <span class="mi">79403560322</span><span class="p">,</span>
+        <span class="s2">&quot;Diablo IV&quot;</span><span class="p">:</span> <span class="mi">6881450057</span><span class="p">,</span>
+        <span class="s2">&quot;Last Epoch&quot;</span><span class="p">:</span> <span class="mi">49970534162</span><span class="p">,</span>
+        <span class="s2">&quot;DOOM Eternal&quot;</span><span class="p">:</span> <span class="mi">60026510027</span><span class="p">,</span>
+        <span class="s2">&quot;Slay the Spire&quot;</span><span class="p">:</span> <span class="mi">2360246842</span><span class="p">,</span>
+        <span class="s2">&quot;Diablo II: Lord of Destruction&quot;</span><span class="p">:</span> <span class="mi">10614589615</span><span class="p">,</span>
+        <span class="s2">&quot;The Elder Scrolls V: Skyrim&quot;</span><span class="p">:</span> <span class="mi">29864781871</span><span class="p">,</span>
+        <span class="s2">&quot;Destiny 2&quot;</span><span class="p">:</span> <span class="mi">76234637928</span><span class="p">,</span>
+        <span class="s2">&quot;Green Hell&quot;</span><span class="p">:</span> <span class="mi">9892099952</span><span class="p">,</span>
+        <span class="s2">&quot;Half-Life: Alyx&quot;</span><span class="p">:</span> <span class="mi">12131350186</span><span class="p">,</span>
+        <span class="s2">&quot;Beat Saber&quot;</span><span class="p">:</span> <span class="mi">752689827</span><span class="p">,</span>
+        <span class="s2">&quot;Getting Over It with Bennett Foddy&quot;</span><span class="p">:</span> <span class="mi">5231878019</span><span class="p">,</span>
+        <span class="s2">&quot;New World&quot;</span><span class="p">:</span> <span class="mi">35220626108</span><span class="p">,</span>
+        <span class="s2">&quot;VRChat&quot;</span><span class="p">:</span> <span class="mi">771268527</span><span class="p">,</span>
+        <span class="s2">&quot;Who Wants To Be A Millionaire&quot;</span><span class="p">:</span> <span class="mi">6755493072</span><span class="p">,</span>
+        <span class="s2">&quot;Mortal Shell&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">&quot;Cyberpunk 2077&quot;</span><span class="p">:</span> <span class="mi">117759623745</span><span class="p">,</span>
+        <span class="s2">&quot;Cuphead&quot;</span><span class="p">:</span> <span class="mi">25009954846</span><span class="p">,</span>
+        <span class="s2">&quot;Fall Guys: Ultimate Knockout&quot;</span><span class="p">:</span> <span class="mi">5663789458</span><span class="p">,</span>
+        <span class="s2">&quot;Grim Dawn&quot;</span><span class="p">:</span> <span class="mi">10383299063</span><span class="p">,</span>
+        <span class="s2">&quot;Diablo&quot;</span><span class="p">:</span> <span class="mi">333962365</span><span class="p">,</span>
+        <span class="s2">&quot;Baldur&#39;s Gate 3&quot;</span><span class="p">:</span> <span class="mi">177857008731</span><span class="p">,</span>
+        <span class="s2">&quot;Lineage 2: Revolution&quot;</span><span class="p">:</span> <span class="mi">8262115020</span><span class="p">,</span>
+        <span class="s2">&quot;Fallout 4&quot;</span><span class="p">:</span> <span class="mi">53548454638</span><span class="p">,</span>
+        <span class="s2">&quot;Bless Online&quot;</span><span class="p">:</span> <span class="mi">44348434393</span><span class="p">,</span>
+        <span class="s2">&quot;Portal 2&quot;</span><span class="p">:</span> <span class="mi">357179213</span><span class="p">,</span>
+        <span class="s2">&quot;Exanima&quot;</span><span class="p">:</span> <span class="mi">4429205180</span><span class="p">,</span>
+        <span class="s2">&quot;God of War&quot;</span><span class="p">:</span> <span class="mi">1186924328</span><span class="p">,</span>
+        <span class="s2">&quot;Besiege&quot;</span><span class="p">:</span> <span class="mi">9883393946</span><span class="p">,</span>
+        <span class="s2">&quot;Warhammer: Chaosbane&quot;</span><span class="p">:</span> <span class="mi">58238753224</span><span class="p">,</span>
+        <span class="s2">&quot;Limbo&quot;</span><span class="p">:</span> <span class="mi">3206400933</span><span class="p">,</span>
+        <span class="s2">&quot;Mount &amp; Blade II: Bannerlord&quot;</span><span class="p">:</span> <span class="mi">65992170893</span><span class="p">,</span>
+        <span class="s2">&quot;The Exorcist: Legion VR&quot;</span><span class="p">:</span> <span class="mi">4987498428</span><span class="p">,</span>
+        <span class="s2">&quot;In Your Face&quot;</span><span class="p">:</span> <span class="mi">329645151</span><span class="p">,</span>
+        <span class="s2">&quot;Accounting&quot;</span><span class="p">:</span> <span class="mi">2302197925</span><span class="p">,</span>
+        <span class="s2">&quot;Totally Accurate Battle Simulator&quot;</span><span class="p">:</span> <span class="mi">9794291046</span><span class="p">,</span>
+        <span class="s2">&quot;Amnesia: Rebirth&quot;</span><span class="p">:</span> <span class="mi">34914707637</span><span class="p">,</span>
+        <span class="s2">&quot;Little Misfortune&quot;</span><span class="p">:</span> <span class="mi">19764855934</span><span class="p">,</span>
+        <span class="s2">&quot;A Chair in a Room: Greenwater&quot;</span><span class="p">:</span> <span class="mi">4162988589</span><span class="p">,</span>
+        <span class="s2">&quot;Portal&quot;</span><span class="p">:</span> <span class="mi">357179213</span><span class="p">,</span>
+        <span class="s2">&quot;Paranormal Activity: The Lost Soul&quot;</span><span class="p">:</span> <span class="mi">6176413889</span><span class="p">,</span>
+        <span class="s2">&quot;Godfall&quot;</span><span class="p">:</span> <span class="mi">284533973</span><span class="p">,</span>
+        <span class="s2">&quot;Heroes of the Storm&quot;</span><span class="p">:</span> <span class="mi">2082985997</span><span class="p">,</span>
+        <span class="s2">&quot;Diablo Immortal&quot;</span><span class="p">:</span> <span class="mi">268337008</span><span class="p">,</span>
+        <span class="s2">&quot;The Stanley Parable Mod&quot;</span><span class="p">:</span> <span class="mi">925170085</span><span class="p">,</span>
+        <span class="s2">&quot;Superliminal&quot;</span><span class="p">:</span> <span class="mi">34755598440</span><span class="p">,</span>
+        <span class="s2">&quot;Poly Bridge 2&quot;</span><span class="p">:</span> <span class="mi">1812541029</span><span class="p">,</span>
+        <span class="s2">&quot;Stilt Fella&quot;</span><span class="p">:</span> <span class="mi">395362514</span><span class="p">,</span>
+        <span class="s2">&quot;Arizona Sunshine&quot;</span><span class="p">:</span> <span class="mi">28572819379</span><span class="p">,</span>
+        <span class="s2">&quot;I Wanna Be The Boshy&quot;</span><span class="p">:</span> <span class="mi">486910471</span><span class="p">,</span>
+        <span class="s2">&quot;Ashes of Creation&quot;</span><span class="p">:</span> <span class="mi">6777024339</span><span class="p">,</span>
+        <span class="s2">&quot;Dreadhalls&quot;</span><span class="p">:</span> <span class="mi">1013220341</span><span class="p">,</span>
+        <span class="s2">&quot;Microsoft Flight Simulator&quot;</span><span class="p">:</span> <span class="mi">1539007973</span><span class="p">,</span>
+        <span class="s2">&quot;Don&#39;t Knock Twice&quot;</span><span class="p">:</span> <span class="mi">2614746810</span><span class="p">,</span>
+        <span class="s2">&quot;Warcraft III: Reforged&quot;</span><span class="p">:</span> <span class="mi">5981923060</span><span class="p">,</span>
+        <span class="s2">&quot;Blade &amp; Sorcery&quot;</span><span class="p">:</span> <span class="mi">8206475119</span><span class="p">,</span>
+        <span class="s2">&quot;Grounded&quot;</span><span class="p">:</span> <span class="mi">4591337959</span><span class="p">,</span>
+        <span class="s2">&quot;Risk of Rain 2&quot;</span><span class="p">:</span> <span class="mi">3307273090</span><span class="p">,</span>
+        <span class="s2">&quot;Jump King&quot;</span><span class="p">:</span> <span class="mi">1782741399</span><span class="p">,</span>
+        <span class="s2">&quot;Unknown&quot;</span><span class="p">:</span> <span class="mi">60974180387</span><span class="p">,</span>
+        <span class="s2">&quot;Papers, Please&quot;</span><span class="p">:</span> <span class="mi">204661900</span><span class="p">,</span>
+        <span class="s2">&quot;SUPERHOT VR&quot;</span><span class="p">:</span> <span class="mi">6628592425</span><span class="p">,</span>
+        <span class="s2">&quot;Duck Season&quot;</span><span class="p">:</span> <span class="mi">11868750058</span><span class="p">,</span>
+        <span class="s2">&quot;Hot Dogs, Horseshoes &amp; Hand Grenades&quot;</span><span class="p">:</span> <span class="mi">15421675716</span><span class="p">,</span>
+        <span class="s2">&quot;Who Wants to Be a Millionaire?&quot;</span><span class="p">:</span> <span class="mi">6755493072</span><span class="p">,</span>
+        <span class="s2">&quot;Transference&quot;</span><span class="p">:</span> <span class="mi">11227835772</span><span class="p">,</span>
+        <span class="s2">&quot;AFFECTED: The Manor&quot;</span><span class="p">:</span> <span class="mi">3690441537</span><span class="p">,</span>
+        <span class="s2">&quot;Oops!!! I Slept With Your Mom&quot;</span><span class="p">:</span> <span class="mi">181920004</span><span class="p">,</span>
+        <span class="s2">&quot;World of Warcraft: Battle for Azeroth&quot;</span><span class="p">:</span> <span class="mi">8302308185</span><span class="p">,</span>
+        <span class="s2">&quot;Borderlands 3&quot;</span><span class="p">:</span> <span class="mi">128964722965</span><span class="p">,</span>
+        <span class="s2">&quot;Valheim&quot;</span><span class="p">:</span> <span class="mi">2843296311</span><span class="p">,</span>
+<span class="p">}</span>
 
+<span class="nb">print</span><span class="p">()</span>
 <span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">game_to_size</span><span class="p">)</span>
 </pre></div>
 
@@ -14514,100 +14613,96 @@ a.anchor-link {
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>World of Warcraft not found on SteamDB!
-Path of Exile https://steamdb.info/app/238960/ 29589377891
-Diablo III https://steamdb.info/app/1158310/ 5981923060
-Just Chatting https://steamdb.info/app/1221560/ 26848396
-LOST ARK https://steamdb.info/app/377450/ 2654020720
-Terraria https://steamdb.info/app/105600/ 1847376272
-Minecraft https://steamdb.info/app/639170/ 14307586923
-Darkest Dungeon https://steamdb.info/app/262060/ 12066824156
-Wolcen: Lords of Mayhem https://steamdb.info/app/424370/ 109170195059
-Dark Souls III https://steamdb.info/app/374320/ 27630425036
-Bloons TD 6 https://steamdb.info/app/960090/ 2123322021
-Hades https://steamdb.info/app/1145360/ 27011131823
-Dark Souls II: Scholar of the First Sin https://steamdb.info/app/335300/ 38751409296
-Sekiro: Shadows Die Twice https://steamdb.info/app/814380/ 16108432532
-Divinity: Original Sin II https://steamdb.info/app/435150/ 97066890477
-Dark Souls https://steamdb.info/app/570940/ 7813699112
-Final Fantasy VII Remake https://steamdb.info/app/595520/ 31346367083
-Subnautica https://steamdb.info/app/848450/ 20859143166
-Welcome to the Game II https://steamdb.info/app/720250/ 5767667201
-Bloodborne not found on SteamDB!
-Demon&#39;s Souls https://steamdb.info/app/960990/ 79403560322
-Diablo IV https://steamdb.info/app/236850/ 6881450057
-Last Epoch https://steamdb.info/app/899770/ 49970534162
-DOOM Eternal https://steamdb.info/app/782330/ 60026510027
-Slay the Spire https://steamdb.info/app/646570/ 2360246842
-Diablo II: Lord of Destruction https://steamdb.info/app/807120/ 10614589615
-The Elder Scrolls V: Skyrim https://steamdb.info/app/611670/ 29864781871
-Destiny 2 https://steamdb.info/app/1085660/ 76234637928
-Green Hell https://steamdb.info/app/815370/ 9892099952
-Special Events not found on SteamDB!
-Half-Life: Alyx https://steamdb.info/app/1361700/ 12131350186
-Beat Saber https://steamdb.info/app/620980/ 752689827
-Getting Over It with Bennett Foddy https://steamdb.info/app/240720/ 5231878019
-New World https://steamdb.info/app/1426320/ 35220626108
-VRChat https://steamdb.info/app/438100/ 771268527
-Who Wants To Be A Millionaire https://steamdb.info/app/1356240/ 6755493072
-Mortal Shell https://steamdb.info/app/1110910/ 0
-Cyberpunk 2077 https://steamdb.info/app/1091500/ 117759623745
-Cuphead https://steamdb.info/app/268910/ 25009954846
-Fall Guys: Ultimate Knockout https://steamdb.info/app/1097150/ 5663789458
-Grim Dawn https://steamdb.info/app/219990/ 10383299063
-Diablo https://steamdb.info/app/1138060/ 333962365
-Baldur&#39;s Gate 3 https://steamdb.info/app/1086940/ 177857008731
-Lineage 2: Revolution https://steamdb.info/app/1379930/ 8262115020
-Fallout 4 https://steamdb.info/app/611660/ 53548454638
-Bless Online https://steamdb.info/app/681660/ 44348434393
-Portal 2 https://steamdb.info/app/104600/ 357179213
-Exanima https://steamdb.info/app/362490/ 4429205180
-God of War https://steamdb.info/app/1537390/ 1186924328
-Besiege https://steamdb.info/app/346010/ 9883393946
-IRL https://steamdb.info/app/1349120/ 0
-Warhammer: Chaosbane https://steamdb.info/app/774241/ 58238753224
-Limbo https://steamdb.info/app/1051900/ 3206400933
-Mount &amp; Blade II: Bannerlord https://steamdb.info/app/261550/ 65992170893
-The Exorcist: Legion VR https://steamdb.info/app/1156250/ 4987498428
-In Your Face https://steamdb.info/app/564330/ 329645151
-Accounting https://steamdb.info/app/927270/ 2302197925
-Totally Accurate Battle Simulator https://steamdb.info/app/508440/ 9794291046
-Amnesia: Rebirth https://steamdb.info/app/999220/ 34914707637
-Little Misfortune https://steamdb.info/app/714120/ 19764855934
-A Chair in a Room: Greenwater https://steamdb.info/app/427760/ 4162988589
-Portal https://steamdb.info/app/104600/ 357179213
-Paranormal Activity: The Lost Soul https://steamdb.info/app/467660/ 6176413889
-Godfall https://steamdb.info/app/469720/ 284533973
-Heroes of the Storm https://steamdb.info/app/1437840/ 2082985997
-Diablo Immortal https://steamdb.info/app/690510/ 268337008
-The Stanley Parable Mod https://steamdb.info/app/1464350/ 925170085
-Superliminal https://steamdb.info/app/1049410/ 34755598440
-Poly Bridge 2 https://steamdb.info/app/1062160/ 1812541029
-Stilt Fella https://steamdb.info/app/1133590/ 395362514
-Arizona Sunshine https://steamdb.info/app/342180/ 28572819379
-I Wanna Be The Boshy https://steamdb.info/app/1274310/ 486910471
-Ashes of Creation https://steamdb.info/app/1133430/ 6777024339
-Dreadhalls https://steamdb.info/app/589200/ 1013220341
-Microsoft Flight Simulator https://steamdb.info/app/1250410/ 1539007973
-Don&#39;t Knock Twice https://steamdb.info/app/328590/ 2614746810
-Warcraft III: Reforged https://steamdb.info/app/1158310/ 5981923060
-Blade &amp; Sorcery https://steamdb.info/app/629730/ 8206475119
-Grounded https://steamdb.info/app/962130/ 4591337959
-Risk of Rain 2 https://steamdb.info/app/632360/ 3307273090
-Jump King https://steamdb.info/app/1061090/ 1782741399
-Unknown https://steamdb.info/app/502500/ 60974180387
-Papers, Please https://steamdb.info/app/239030/ 204661900
-SUPERHOT VR https://steamdb.info/app/617830/ 6628592425
-Duck Season https://steamdb.info/app/746510/ 11868750058
-Hot Dogs, Horseshoes &amp; Hand Grenades https://steamdb.info/app/450540/ 15421675716
-Who Wants to Be a Millionaire? https://steamdb.info/app/1356240/ 6755493072
-GeoGuessr not found on SteamDB!
-Transference https://steamdb.info/app/647570/ 11227835772
-AFFECTED: The Manor https://steamdb.info/app/707580/ 3690441537
-Oops!!! I Slept With Your Mom https://steamdb.info/app/930320/ 181920004
-World of Warcraft: Battle for Azeroth https://steamdb.info/app/312450/ 8302308185
-Borderlands 3 https://steamdb.info/app/397540/ 128964722965
-Valheim https://steamdb.info/app/892970/ 2843296311
+<pre>
+{&#39;A Chair in a Room: Greenwater&#39;: 4162988589,
+ &#39;AFFECTED: The Manor&#39;: 3690441537,
+ &#39;Accounting&#39;: 2302197925,
+ &#39;Amnesia: Rebirth&#39;: 34914707637,
+ &#39;Arizona Sunshine&#39;: 28572819379,
+ &#39;Ashes of Creation&#39;: 6777024339,
+ &#34;Baldur&#39;s Gate 3&#34;: 177857008731,
+ &#39;Beat Saber&#39;: 752689827,
+ &#39;Besiege&#39;: 9883393946,
+ &#39;Blade &amp; Sorcery&#39;: 8206475119,
+ &#39;Bless Online&#39;: 44348434393,
+ &#39;Bloons TD 6&#39;: 2123322021,
+ &#39;Borderlands 3&#39;: 128964722965,
+ &#39;Cuphead&#39;: 25009954846,
+ &#39;Cyberpunk 2077&#39;: 117759623745,
+ &#39;DOOM Eternal&#39;: 60026510027,
+ &#39;Dark Souls&#39;: 7813699112,
+ &#39;Dark Souls II: Scholar of the First Sin&#39;: 38751409296,
+ &#39;Dark Souls III&#39;: 27630425036,
+ &#39;Darkest Dungeon&#39;: 12066824156,
+ &#34;Demon&#39;s Souls&#34;: 79403560322,
+ &#39;Destiny 2&#39;: 76234637928,
+ &#39;Diablo&#39;: 333962365,
+ &#39;Diablo II: Lord of Destruction&#39;: 10614589615,
+ &#39;Diablo III&#39;: 5981923060,
+ &#39;Diablo IV&#39;: 6881450057,
+ &#39;Diablo Immortal&#39;: 268337008,
+ &#39;Divinity: Original Sin II&#39;: 97066890477,
+ &#34;Don&#39;t Knock Twice&#34;: 2614746810,
+ &#39;Dreadhalls&#39;: 1013220341,
+ &#39;Duck Season&#39;: 11868750058,
+ &#39;Exanima&#39;: 4429205180,
+ &#39;Fall Guys: Ultimate Knockout&#39;: 5663789458,
+ &#39;Fallout 4&#39;: 53548454638,
+ &#39;Final Fantasy VII Remake&#39;: 31346367083,
+ &#39;Getting Over It with Bennett Foddy&#39;: 5231878019,
+ &#39;God of War&#39;: 1186924328,
+ &#39;Godfall&#39;: 284533973,
+ &#39;Green Hell&#39;: 9892099952,
+ &#39;Grim Dawn&#39;: 10383299063,
+ &#39;Grounded&#39;: 4591337959,
+ &#39;Hades&#39;: 27011131823,
+ &#39;Half-Life: Alyx&#39;: 12131350186,
+ &#39;Heroes of the Storm&#39;: 2082985997,
+ &#39;Hot Dogs, Horseshoes &amp; Hand Grenades&#39;: 15421675716,
+ &#39;I Wanna Be The Boshy&#39;: 486910471,
+ &#39;In Your Face&#39;: 329645151,
+ &#39;Jump King&#39;: 1782741399,
+ &#39;Just Chatting&#39;: 26848396,
+ &#39;LOST ARK&#39;: 2654020720,
+ &#39;Last Epoch&#39;: 49970534162,
+ &#39;Limbo&#39;: 3206400933,
+ &#39;Lineage 2: Revolution&#39;: 8262115020,
+ &#39;Little Misfortune&#39;: 19764855934,
+ &#39;Microsoft Flight Simulator&#39;: 1539007973,
+ &#39;Minecraft&#39;: 14307586923,
+ &#39;Mortal Shell&#39;: 0,
+ &#39;Mount &amp; Blade II: Bannerlord&#39;: 65992170893,
+ &#39;New World&#39;: 35220626108,
+ &#39;Oops!!! I Slept With Your Mom&#39;: 181920004,
+ &#39;Papers, Please&#39;: 204661900,
+ &#39;Paranormal Activity: The Lost Soul&#39;: 6176413889,
+ &#39;Path of Exile&#39;: 29589377891,
+ &#39;Poly Bridge 2&#39;: 1812541029,
+ &#39;Portal&#39;: 357179213,
+ &#39;Portal 2&#39;: 357179213,
+ &#39;Risk of Rain 2&#39;: 3307273090,
+ &#39;SUPERHOT VR&#39;: 6628592425,
+ &#39;Sekiro: Shadows Die Twice&#39;: 16108432532,
+ &#39;Slay the Spire&#39;: 2360246842,
+ &#39;Stilt Fella&#39;: 395362514,
+ &#39;Subnautica&#39;: 20859143166,
+ &#39;Superliminal&#39;: 34755598440,
+ &#39;Terraria&#39;: 1847376272,
+ &#39;The Elder Scrolls V: Skyrim&#39;: 29864781871,
+ &#39;The Exorcist: Legion VR&#39;: 4987498428,
+ &#39;The Stanley Parable Mod&#39;: 925170085,
+ &#39;Totally Accurate Battle Simulator&#39;: 9794291046,
+ &#39;Transference&#39;: 11227835772,
+ &#39;Unknown&#39;: 60974180387,
+ &#39;VRChat&#39;: 771268527,
+ &#39;Valheim&#39;: 2843296311,
+ &#39;Warcraft III: Reforged&#39;: 5981923060,
+ &#39;Warhammer: Chaosbane&#39;: 58238753224,
+ &#39;Welcome to the Game II&#39;: 5767667201,
+ &#39;Who Wants To Be A Millionaire&#39;: 6755493072,
+ &#39;Who Wants to Be a Millionaire?&#39;: 6755493072,
+ &#39;Wolcen: Lords of Mayhem&#39;: 109170195059,
+ &#39;World of Warcraft: Battle for Azeroth&#39;: 8302308185}
 </pre>
 </div>
 </div>
@@ -14619,7 +14714,7 @@ Valheim https://steamdb.info/app/892970/ 2843296311
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[32]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[40]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pprint</span>
@@ -14647,12 +14742,7 @@ Valheim https://steamdb.info/app/892970/ 2843296311
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>World of Warcraft
-Bloodborne
-Special Events
-Mortal Shell
-IRL
-GeoGuessr
+<pre>Mortal Shell
 </pre>
 </div>
 </div>
@@ -14664,25 +14754,30 @@ GeoGuessr
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[33]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[41]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># https://eu.battle.net/support/en/article/76459</span>
-<span class="n">game_to_size</span><span class="p">[</span><span class="s2">&quot;World of Warcraft&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100_000_000_000</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">MEGABYTE_IN_BYTES</span> <span class="o">=</span> <span class="mi">1_000_000</span>
+<span class="n">GIGABYTE_IN_BYTES</span> <span class="o">=</span> <span class="n">MEGABYTE_IN_BYTES</span> <span class="o">*</span> <span class="mi">1000</span>
+
+
+<span class="c1"># https://eu.battle.net/support/en/article/76459</span>
+<span class="n">game_to_size</span><span class="p">[</span><span class="s2">&quot;World of Warcraft&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">GIGABYTE_IN_BYTES</span>
 
 <span class="c1"># https://www.finder.com/complete-list-playstation-4-install-sizes-460-titles</span>
 <span class="c1"># Take average of regular/GOTY since I have no idea what he played</span>
-<span class="n">game_to_size</span><span class="p">[</span><span class="s2">&quot;Bloodborne&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mf">27.19</span> <span class="o">+</span> <span class="mf">32.75</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">*</span> <span class="mi">1_000_000_000</span>
+<span class="n">game_to_size</span><span class="p">[</span><span class="s2">&quot;Bloodborne&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mf">27.19</span> <span class="o">+</span> <span class="mf">32.75</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">GIGABYTE_IN_BYTES</span>
 
 <span class="c1"># Hard to estimate, since it uses external resources and is a browser game... Let&#39;s say 100mb</span>
-<span class="n">game_to_size</span><span class="p">[</span><span class="s2">&quot;GeoGuessr&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100_000_000</span>
+<span class="n">game_to_size</span><span class="p">[</span><span class="s2">&quot;GeoGuessr&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">MEGABYTE_IN_BYTES</span>
 
+<span class="c1"># No depot info for Mortal Shell</span>
+<span class="k">for</span> <span class="n">non_game</span> <span class="ow">in</span> <span class="s2">&quot;Special Events&quot;</span><span class="p">,</span> <span class="s2">&quot;IRL&quot;</span><span class="p">,</span> <span class="s2">&quot;Mortal Shell&quot;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">non_game</span> <span class="ow">in</span> <span class="n">game_to_airtime</span><span class="p">:</span>
+        <span class="k">del</span> <span class="n">game_to_airtime</span><span class="p">[</span><span class="n">non_game</span><span class="p">]</span>
 
-<span class="c1"># Remove non-games</span>
-<span class="k">del</span> <span class="n">game_to_airtime</span><span class="p">[</span><span class="s2">&quot;Special Events&quot;</span><span class="p">]</span>
-<span class="k">del</span> <span class="n">game_to_size</span><span class="p">[</span><span class="s2">&quot;Special Events&quot;</span><span class="p">]</span>
-<span class="k">del</span> <span class="n">game_to_airtime</span><span class="p">[</span><span class="s2">&quot;IRL&quot;</span><span class="p">]</span>
-<span class="k">del</span> <span class="n">game_to_size</span><span class="p">[</span><span class="s2">&quot;IRL&quot;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">non_game</span> <span class="ow">in</span> <span class="n">game_to_size</span><span class="p">:</span>
+        <span class="k">del</span> <span class="n">game_to_size</span><span class="p">[</span><span class="n">non_game</span><span class="p">]</span>
 </pre></div>
 
      </div>
@@ -14693,14 +14788,11 @@ GeoGuessr
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[73]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[42]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">GIGABYTE_IN_BYTES</span> <span class="o">=</span> <span class="mi">1_000_000_000</span>
-
-<span class="n">X</span> <span class="o">=</span> <span class="p">[</span><span class="n">airtime</span> <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">airtime</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">game_to_airtime</span><span class="o">.</span><span class="n">items</span><span class="p">())]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="p">[</span><span class="n">airtime</span> <span class="o">/</span> <span class="mi">60</span> <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">airtime</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">game_to_airtime</span><span class="o">.</span><span class="n">items</span><span class="p">())]</span>
 <span class="n">Y</span> <span class="o">=</span> <span class="p">[</span><span class="n">size</span> <span class="o">/</span> <span class="n">GIGABYTE_IN_BYTES</span> <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">size</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">game_to_size</span><span class="o">.</span><span class="n">items</span><span class="p">())]</span>
-
 
 <span class="c1"># Do a sanity check, seems correct</span>
 <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">Y</span><span class="p">)</span>
@@ -14725,98 +14817,97 @@ GeoGuessr
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>A Chair in a Room: Greenwater (4.16Gb): Played for 245.00 hours
-AFFECTED: The Manor (3.69Gb): Played for 40.00 hours
-Accounting (2.30Gb): Played for 270.00 hours
-Amnesia: Rebirth (34.91Gb): Played for 255.00 hours
-Arizona Sunshine (28.57Gb): Played for 140.00 hours
-Ashes of Creation (6.78Gb): Played for 130.00 hours
-Baldur&#39;s Gate 3 (177.86Gb): Played for 665.00 hours
-Beat Saber (0.75Gb): Played for 1253.00 hours
-Besiege (9.88Gb): Played for 435.00 hours
-Blade &amp; Sorcery (8.21Gb): Played for 110.00 hours
-Bless Online (44.35Gb): Played for 614.00 hours
-Bloodborne (29.97Gb): Played for 2435.00 hours
-Bloons TD 6 (2.12Gb): Played for 4850.00 hours
-Borderlands 3 (128.96Gb): Played for 30.00 hours
-Cuphead (25.01Gb): Played for 885.00 hours
-Cyberpunk 2077 (117.76Gb): Played for 970.00 hours
-DOOM Eternal (60.03Gb): Played for 2020.00 hours
-Dark Souls (7.81Gb): Played for 2903.00 hours
-Dark Souls II: Scholar of the First Sin (38.75Gb): Played for 3658.00 hours
-Dark Souls III (27.63Gb): Played for 5293.00 hours
-Darkest Dungeon (12.07Gb): Played for 7341.00 hours
-Demon&#39;s Souls (79.40Gb): Played for 2163.00 hours
-Destiny 2 (76.23Gb): Played for 1679.00 hours
-Diablo (0.33Gb): Played for 710.00 hours
-Diablo II: Lord of Destruction (10.61Gb): Played for 1761.00 hours
-Diablo III (5.98Gb): Played for 56460.00 hours
-Diablo IV (6.88Gb): Played for 2074.00 hours
-Diablo Immortal (0.27Gb): Played for 200.00 hours
-Divinity: Original Sin II (97.07Gb): Played for 2993.00 hours
-Don&#39;t Knock Twice (2.61Gb): Played for 120.00 hours
-Dreadhalls (1.01Gb): Played for 130.00 hours
-Duck Season (11.87Gb): Played for 75.00 hours
-Exanima (4.43Gb): Played for 480.00 hours
-Fall Guys: Ultimate Knockout (5.66Gb): Played for 795.00 hours
-Fallout 4 (53.55Gb): Played for 630.00 hours
-Final Fantasy VII Remake (31.35Gb): Played for 2887.00 hours
-GeoGuessr (0.10Gb): Played for 70.00 hours
-Getting Over It with Bennett Foddy (5.23Gb): Played for 1110.00 hours
-God of War (1.19Gb): Played for 459.00 hours
-Godfall (0.28Gb): Played for 215.00 hours
-Green Hell (9.89Gb): Played for 1580.00 hours
-Grim Dawn (10.38Gb): Played for 747.00 hours
-Grounded (4.59Gb): Played for 110.00 hours
-Hades (27.01Gb): Played for 3670.00 hours
-Half-Life: Alyx (12.13Gb): Played for 1451.00 hours
-Heroes of the Storm (2.08Gb): Played for 200.00 hours
-Hot Dogs, Horseshoes &amp; Hand Grenades (15.42Gb): Played for 75.00 hours
-I Wanna Be The Boshy (0.49Gb): Played for 135.00 hours
-In Your Face (0.33Gb): Played for 275.00 hours
-Jump King (1.78Gb): Played for 90.00 hours
-Just Chatting (0.03Gb): Played for 16089.00 hours
-LOST ARK (2.65Gb): Played for 14125.00 hours
-Last Epoch (49.97Gb): Played for 2055.00 hours
-Limbo (3.21Gb): Played for 295.00 hours
-Lineage 2: Revolution (8.26Gb): Played for 630.00 hours
-Little Misfortune (19.76Gb): Played for 250.00 hours
-Microsoft Flight Simulator (1.54Gb): Played for 120.00 hours
-Minecraft (14.31Gb): Played for 9239.00 hours
-Mortal Shell (0.00Gb): Played for 979.00 hours
-Mount &amp; Blade II: Bannerlord (65.99Gb): Played for 295.00 hours
-New World (35.22Gb): Played for 1090.00 hours
-Oops!!! I Slept With Your Mom (0.18Gb): Played for 30.00 hours
-Papers, Please (0.20Gb): Played for 90.00 hours
-Paranormal Activity: The Lost Soul (6.18Gb): Played for 225.00 hours
-Path of Exile (29.59Gb): Played for 222300.00 hours
-Poly Bridge 2 (1.81Gb): Played for 170.00 hours
-Portal (0.36Gb): Played for 230.00 hours
-Portal 2 (0.36Gb): Played for 540.00 hours
-Risk of Rain 2 (3.31Gb): Played for 105.00 hours
-SUPERHOT VR (6.63Gb): Played for 80.00 hours
-Sekiro: Shadows Die Twice (16.11Gb): Played for 3399.00 hours
-Slay the Spire (2.36Gb): Played for 1795.00 hours
-Stilt Fella (0.40Gb): Played for 165.00 hours
-Subnautica (20.86Gb): Played for 2520.00 hours
-Superliminal (34.76Gb): Played for 175.00 hours
-Terraria (1.85Gb): Played for 13716.00 hours
-The Elder Scrolls V: Skyrim (29.86Gb): Played for 1748.00 hours
-The Exorcist: Legion VR (4.99Gb): Played for 295.00 hours
-The Stanley Parable Mod (0.93Gb): Played for 200.00 hours
-Totally Accurate Battle Simulator (9.79Gb): Played for 265.00 hours
-Transference (11.23Gb): Played for 60.00 hours
-Unknown (60.97Gb): Played for 90.00 hours
-VRChat (0.77Gb): Played for 1045.00 hours
-Valheim (2.84Gb): Played for 28.00 hours
-Warcraft III: Reforged (5.98Gb): Played for 115.00 hours
-Warhammer: Chaosbane (58.24Gb): Played for 295.00 hours
-Welcome to the Game II (5.77Gb): Played for 2460.00 hours
-Who Wants To Be A Millionaire (6.76Gb): Played for 995.00 hours
-Who Wants to Be a Millionaire? (6.76Gb): Played for 70.00 hours
-Wolcen: Lords of Mayhem (109.17Gb): Played for 6236.00 hours
-World of Warcraft (100.00Gb): Played for 353067.00 hours
-World of Warcraft: Battle for Azeroth (8.30Gb): Played for 30.00 hours
+<pre>A Chair in a Room: Greenwater (4.16Gb): Played for 4.08 hours
+AFFECTED: The Manor (3.69Gb): Played for 0.67 hours
+Accounting (2.30Gb): Played for 4.50 hours
+Amnesia: Rebirth (34.91Gb): Played for 4.25 hours
+Arizona Sunshine (28.57Gb): Played for 2.33 hours
+Ashes of Creation (6.78Gb): Played for 2.17 hours
+Baldur&#39;s Gate 3 (177.86Gb): Played for 11.08 hours
+Beat Saber (0.75Gb): Played for 20.88 hours
+Besiege (9.88Gb): Played for 7.25 hours
+Blade &amp; Sorcery (8.21Gb): Played for 1.83 hours
+Bless Online (44.35Gb): Played for 10.23 hours
+Bloodborne (29.97Gb): Played for 40.58 hours
+Bloons TD 6 (2.12Gb): Played for 80.83 hours
+Borderlands 3 (128.96Gb): Played for 0.50 hours
+Cuphead (25.01Gb): Played for 14.75 hours
+Cyberpunk 2077 (117.76Gb): Played for 16.17 hours
+DOOM Eternal (60.03Gb): Played for 33.67 hours
+Dark Souls (7.81Gb): Played for 48.38 hours
+Dark Souls II: Scholar of the First Sin (38.75Gb): Played for 60.97 hours
+Dark Souls III (27.63Gb): Played for 88.22 hours
+Darkest Dungeon (12.07Gb): Played for 122.35 hours
+Demon&#39;s Souls (79.40Gb): Played for 36.05 hours
+Destiny 2 (76.23Gb): Played for 27.98 hours
+Diablo (0.33Gb): Played for 11.83 hours
+Diablo II: Lord of Destruction (10.61Gb): Played for 29.35 hours
+Diablo III (5.98Gb): Played for 941.00 hours
+Diablo IV (6.88Gb): Played for 34.57 hours
+Diablo Immortal (0.27Gb): Played for 3.33 hours
+Divinity: Original Sin II (97.07Gb): Played for 49.88 hours
+Don&#39;t Knock Twice (2.61Gb): Played for 2.00 hours
+Dreadhalls (1.01Gb): Played for 2.17 hours
+Duck Season (11.87Gb): Played for 1.25 hours
+Exanima (4.43Gb): Played for 8.00 hours
+Fall Guys: Ultimate Knockout (5.66Gb): Played for 13.25 hours
+Fallout 4 (53.55Gb): Played for 10.50 hours
+Final Fantasy VII Remake (31.35Gb): Played for 48.12 hours
+GeoGuessr (0.10Gb): Played for 1.17 hours
+Getting Over It with Bennett Foddy (5.23Gb): Played for 18.50 hours
+God of War (1.19Gb): Played for 7.65 hours
+Godfall (0.28Gb): Played for 3.58 hours
+Green Hell (9.89Gb): Played for 26.33 hours
+Grim Dawn (10.38Gb): Played for 12.45 hours
+Grounded (4.59Gb): Played for 1.83 hours
+Hades (27.01Gb): Played for 61.17 hours
+Half-Life: Alyx (12.13Gb): Played for 24.18 hours
+Heroes of the Storm (2.08Gb): Played for 3.33 hours
+Hot Dogs, Horseshoes &amp; Hand Grenades (15.42Gb): Played for 1.25 hours
+I Wanna Be The Boshy (0.49Gb): Played for 2.25 hours
+In Your Face (0.33Gb): Played for 4.58 hours
+Jump King (1.78Gb): Played for 1.50 hours
+Just Chatting (0.03Gb): Played for 268.15 hours
+LOST ARK (2.65Gb): Played for 235.42 hours
+Last Epoch (49.97Gb): Played for 34.25 hours
+Limbo (3.21Gb): Played for 4.92 hours
+Lineage 2: Revolution (8.26Gb): Played for 10.50 hours
+Little Misfortune (19.76Gb): Played for 4.17 hours
+Microsoft Flight Simulator (1.54Gb): Played for 2.00 hours
+Minecraft (14.31Gb): Played for 153.98 hours
+Mount &amp; Blade II: Bannerlord (65.99Gb): Played for 4.92 hours
+New World (35.22Gb): Played for 18.17 hours
+Oops!!! I Slept With Your Mom (0.18Gb): Played for 0.50 hours
+Papers, Please (0.20Gb): Played for 1.50 hours
+Paranormal Activity: The Lost Soul (6.18Gb): Played for 3.75 hours
+Path of Exile (29.59Gb): Played for 3705.00 hours
+Poly Bridge 2 (1.81Gb): Played for 2.83 hours
+Portal (0.36Gb): Played for 3.83 hours
+Portal 2 (0.36Gb): Played for 9.00 hours
+Risk of Rain 2 (3.31Gb): Played for 1.75 hours
+SUPERHOT VR (6.63Gb): Played for 1.33 hours
+Sekiro: Shadows Die Twice (16.11Gb): Played for 56.65 hours
+Slay the Spire (2.36Gb): Played for 29.92 hours
+Stilt Fella (0.40Gb): Played for 2.75 hours
+Subnautica (20.86Gb): Played for 42.00 hours
+Superliminal (34.76Gb): Played for 2.92 hours
+Terraria (1.85Gb): Played for 228.60 hours
+The Elder Scrolls V: Skyrim (29.86Gb): Played for 29.13 hours
+The Exorcist: Legion VR (4.99Gb): Played for 4.92 hours
+The Stanley Parable Mod (0.93Gb): Played for 3.33 hours
+Totally Accurate Battle Simulator (9.79Gb): Played for 4.42 hours
+Transference (11.23Gb): Played for 1.00 hours
+Unknown (60.97Gb): Played for 1.50 hours
+VRChat (0.77Gb): Played for 17.42 hours
+Valheim (2.84Gb): Played for 2.07 hours
+Warcraft III: Reforged (5.98Gb): Played for 1.92 hours
+Warhammer: Chaosbane (58.24Gb): Played for 4.92 hours
+Welcome to the Game II (5.77Gb): Played for 41.00 hours
+Who Wants To Be A Millionaire (6.76Gb): Played for 16.58 hours
+Who Wants to Be a Millionaire? (6.76Gb): Played for 1.17 hours
+Wolcen: Lords of Mayhem (109.17Gb): Played for 103.93 hours
+World of Warcraft (100.00Gb): Played for 5884.45 hours
+World of Warcraft: Battle for Azeroth (8.30Gb): Played for 0.50 hours
 </pre>
 </div>
 </div>
@@ -14828,7 +14919,7 @@ World of Warcraft: Battle for Azeroth (8.30Gb): Played for 30.00 hours
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[74]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[43]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
@@ -14862,12 +14953,12 @@ World of Warcraft: Battle for Azeroth (8.30Gb): Played for 30.00 hours
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
   "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <!-- Created with matplotlib (https://matplotlib.org/) -->
-<svg height="277.314375pt" version="1.1" viewBox="0 0 390.190807 277.314375" width="390.190807pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg height="277.314375pt" version="1.1" viewBox="0 0 392.449587 277.314375" width="392.449587pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
  <metadata>
   <rdf:RDF xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:date>2021-02-16T18:23:51.804832</dc:date>
+    <dc:date>2021-02-16T19:04:21.139513</dc:date>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
@@ -14883,8 +14974,8 @@ World of Warcraft: Battle for Azeroth (8.30Gb): Played for 30.00 hours
  <g id="figure_1">
   <g id="patch_1">
    <path d="M 0 277.314375 
-L 390.190807 277.314375 
-L 390.190807 0 
+L 392.449587 277.314375 
+L 392.449587 0 
 L 0 0 
 z
 " style="fill:none;"/>
@@ -14904,15 +14995,15 @@ z
       <defs>
        <path d="M 0 0 
 L 0 3.5 
-" id="m847c2b86a3" style="stroke:#000000;stroke-width:0.8;"/>
+" id="m19daaa7f05" style="stroke:#000000;stroke-width:0.8;"/>
       </defs>
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="62.159667" xlink:href="#m847c2b86a3" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="62.157943" xlink:href="#m19daaa7f05" y="239.758125"/>
       </g>
      </g>
      <g id="text_1">
       <!-- 0 -->
-      <g transform="translate(58.978417 254.356562)scale(0.1 -0.1)">
+      <g transform="translate(58.976693 254.356562)scale(0.1 -0.1)">
        <defs>
         <path d="M 31.78125 66.40625 
 Q 24.171875 66.40625 20.328125 58.90625 
@@ -14943,55 +15034,12 @@ z
     <g id="xtick_2">
      <g id="line2d_2">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="105.265902" xlink:href="#m847c2b86a3" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="113.885717" xlink:href="#m19daaa7f05" y="239.758125"/>
       </g>
      </g>
      <g id="text_2">
-      <!-- 50000 -->
-      <g transform="translate(89.359652 254.356562)scale(0.1 -0.1)">
-       <defs>
-        <path d="M 10.796875 72.90625 
-L 49.515625 72.90625 
-L 49.515625 64.59375 
-L 19.828125 64.59375 
-L 19.828125 46.734375 
-Q 21.96875 47.46875 24.109375 47.828125 
-Q 26.265625 48.1875 28.421875 48.1875 
-Q 40.625 48.1875 47.75 41.5 
-Q 54.890625 34.8125 54.890625 23.390625 
-Q 54.890625 11.625 47.5625 5.09375 
-Q 40.234375 -1.421875 26.90625 -1.421875 
-Q 22.3125 -1.421875 17.546875 -0.640625 
-Q 12.796875 0.140625 7.71875 1.703125 
-L 7.71875 11.625 
-Q 12.109375 9.234375 16.796875 8.0625 
-Q 21.484375 6.890625 26.703125 6.890625 
-Q 35.15625 6.890625 40.078125 11.328125 
-Q 45.015625 15.765625 45.015625 23.390625 
-Q 45.015625 31 40.078125 35.4375 
-Q 35.15625 39.890625 26.703125 39.890625 
-Q 22.75 39.890625 18.8125 39.015625 
-Q 14.890625 38.140625 10.796875 36.28125 
-z
-" id="DejaVuSans-53"/>
-       </defs>
-       <use xlink:href="#DejaVuSans-53"/>
-       <use x="63.623047" xlink:href="#DejaVuSans-48"/>
-       <use x="127.246094" xlink:href="#DejaVuSans-48"/>
-       <use x="190.869141" xlink:href="#DejaVuSans-48"/>
-       <use x="254.492188" xlink:href="#DejaVuSans-48"/>
-      </g>
-     </g>
-    </g>
-    <g id="xtick_3">
-     <g id="line2d_3">
-      <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="148.372136" xlink:href="#m847c2b86a3" y="239.758125"/>
-      </g>
-     </g>
-     <g id="text_3">
-      <!-- 100000 -->
-      <g transform="translate(129.284636 254.356562)scale(0.1 -0.1)">
+      <!-- 1000 -->
+      <g transform="translate(101.160717 254.356562)scale(0.1 -0.1)">
        <defs>
         <path d="M 12.40625 8.296875 
 L 28.515625 8.296875 
@@ -15011,38 +15059,18 @@ z
        <use x="63.623047" xlink:href="#DejaVuSans-48"/>
        <use x="127.246094" xlink:href="#DejaVuSans-48"/>
        <use x="190.869141" xlink:href="#DejaVuSans-48"/>
-       <use x="254.492188" xlink:href="#DejaVuSans-48"/>
-       <use x="318.115234" xlink:href="#DejaVuSans-48"/>
       </g>
      </g>
     </g>
-    <g id="xtick_4">
-     <g id="line2d_4">
+    <g id="xtick_3">
+     <g id="line2d_3">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="191.47837" xlink:href="#m847c2b86a3" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="165.613491" xlink:href="#m19daaa7f05" y="239.758125"/>
       </g>
      </g>
-     <g id="text_4">
-      <!-- 150000 -->
-      <g transform="translate(172.39087 254.356562)scale(0.1 -0.1)">
-       <use xlink:href="#DejaVuSans-49"/>
-       <use x="63.623047" xlink:href="#DejaVuSans-53"/>
-       <use x="127.246094" xlink:href="#DejaVuSans-48"/>
-       <use x="190.869141" xlink:href="#DejaVuSans-48"/>
-       <use x="254.492188" xlink:href="#DejaVuSans-48"/>
-       <use x="318.115234" xlink:href="#DejaVuSans-48"/>
-      </g>
-     </g>
-    </g>
-    <g id="xtick_5">
-     <g id="line2d_5">
-      <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="234.584604" xlink:href="#m847c2b86a3" y="239.758125"/>
-      </g>
-     </g>
-     <g id="text_5">
-      <!-- 200000 -->
-      <g transform="translate(215.497104 254.356562)scale(0.1 -0.1)">
+     <g id="text_3">
+      <!-- 2000 -->
+      <g transform="translate(152.888491 254.356562)scale(0.1 -0.1)">
        <defs>
         <path d="M 19.1875 8.296875 
 L 53.609375 8.296875 
@@ -15073,38 +15101,18 @@ z
        <use x="63.623047" xlink:href="#DejaVuSans-48"/>
        <use x="127.246094" xlink:href="#DejaVuSans-48"/>
        <use x="190.869141" xlink:href="#DejaVuSans-48"/>
-       <use x="254.492188" xlink:href="#DejaVuSans-48"/>
-       <use x="318.115234" xlink:href="#DejaVuSans-48"/>
       </g>
      </g>
     </g>
-    <g id="xtick_6">
-     <g id="line2d_6">
+    <g id="xtick_4">
+     <g id="line2d_4">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="277.690838" xlink:href="#m847c2b86a3" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="217.341265" xlink:href="#m19daaa7f05" y="239.758125"/>
       </g>
      </g>
-     <g id="text_6">
-      <!-- 250000 -->
-      <g transform="translate(258.603338 254.356562)scale(0.1 -0.1)">
-       <use xlink:href="#DejaVuSans-50"/>
-       <use x="63.623047" xlink:href="#DejaVuSans-53"/>
-       <use x="127.246094" xlink:href="#DejaVuSans-48"/>
-       <use x="190.869141" xlink:href="#DejaVuSans-48"/>
-       <use x="254.492188" xlink:href="#DejaVuSans-48"/>
-       <use x="318.115234" xlink:href="#DejaVuSans-48"/>
-      </g>
-     </g>
-    </g>
-    <g id="xtick_7">
-     <g id="line2d_7">
-      <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="320.797073" xlink:href="#m847c2b86a3" y="239.758125"/>
-      </g>
-     </g>
-     <g id="text_7">
-      <!-- 300000 -->
-      <g transform="translate(301.709573 254.356562)scale(0.1 -0.1)">
+     <g id="text_4">
+      <!-- 3000 -->
+      <g transform="translate(204.616265 254.356562)scale(0.1 -0.1)">
        <defs>
         <path d="M 40.578125 39.3125 
 Q 47.65625 37.796875 51.625 33 
@@ -15143,30 +15151,135 @@ z
        <use x="63.623047" xlink:href="#DejaVuSans-48"/>
        <use x="127.246094" xlink:href="#DejaVuSans-48"/>
        <use x="190.869141" xlink:href="#DejaVuSans-48"/>
-       <use x="254.492188" xlink:href="#DejaVuSans-48"/>
-       <use x="318.115234" xlink:href="#DejaVuSans-48"/>
       </g>
      </g>
     </g>
-    <g id="xtick_8">
-     <g id="line2d_8">
+    <g id="xtick_5">
+     <g id="line2d_5">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="363.903307" xlink:href="#m847c2b86a3" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="269.069039" xlink:href="#m19daaa7f05" y="239.758125"/>
       </g>
      </g>
-     <g id="text_8">
-      <!-- 350000 -->
-      <g transform="translate(344.815807 254.356562)scale(0.1 -0.1)">
-       <use xlink:href="#DejaVuSans-51"/>
-       <use x="63.623047" xlink:href="#DejaVuSans-53"/>
+     <g id="text_5">
+      <!-- 4000 -->
+      <g transform="translate(256.344039 254.356562)scale(0.1 -0.1)">
+       <defs>
+        <path d="M 37.796875 64.3125 
+L 12.890625 25.390625 
+L 37.796875 25.390625 
+z
+M 35.203125 72.90625 
+L 47.609375 72.90625 
+L 47.609375 25.390625 
+L 58.015625 25.390625 
+L 58.015625 17.1875 
+L 47.609375 17.1875 
+L 47.609375 0 
+L 37.796875 0 
+L 37.796875 17.1875 
+L 4.890625 17.1875 
+L 4.890625 26.703125 
+z
+" id="DejaVuSans-52"/>
+       </defs>
+       <use xlink:href="#DejaVuSans-52"/>
+       <use x="63.623047" xlink:href="#DejaVuSans-48"/>
        <use x="127.246094" xlink:href="#DejaVuSans-48"/>
        <use x="190.869141" xlink:href="#DejaVuSans-48"/>
-       <use x="254.492188" xlink:href="#DejaVuSans-48"/>
-       <use x="318.115234" xlink:href="#DejaVuSans-48"/>
       </g>
      </g>
     </g>
-    <g id="text_9">
+    <g id="xtick_6">
+     <g id="line2d_6">
+      <g>
+       <use style="stroke:#000000;stroke-width:0.8;" x="320.796813" xlink:href="#m19daaa7f05" y="239.758125"/>
+      </g>
+     </g>
+     <g id="text_6">
+      <!-- 5000 -->
+      <g transform="translate(308.071813 254.356562)scale(0.1 -0.1)">
+       <defs>
+        <path d="M 10.796875 72.90625 
+L 49.515625 72.90625 
+L 49.515625 64.59375 
+L 19.828125 64.59375 
+L 19.828125 46.734375 
+Q 21.96875 47.46875 24.109375 47.828125 
+Q 26.265625 48.1875 28.421875 48.1875 
+Q 40.625 48.1875 47.75 41.5 
+Q 54.890625 34.8125 54.890625 23.390625 
+Q 54.890625 11.625 47.5625 5.09375 
+Q 40.234375 -1.421875 26.90625 -1.421875 
+Q 22.3125 -1.421875 17.546875 -0.640625 
+Q 12.796875 0.140625 7.71875 1.703125 
+L 7.71875 11.625 
+Q 12.109375 9.234375 16.796875 8.0625 
+Q 21.484375 6.890625 26.703125 6.890625 
+Q 35.15625 6.890625 40.078125 11.328125 
+Q 45.015625 15.765625 45.015625 23.390625 
+Q 45.015625 31 40.078125 35.4375 
+Q 35.15625 39.890625 26.703125 39.890625 
+Q 22.75 39.890625 18.8125 39.015625 
+Q 14.890625 38.140625 10.796875 36.28125 
+z
+" id="DejaVuSans-53"/>
+       </defs>
+       <use xlink:href="#DejaVuSans-53"/>
+       <use x="63.623047" xlink:href="#DejaVuSans-48"/>
+       <use x="127.246094" xlink:href="#DejaVuSans-48"/>
+       <use x="190.869141" xlink:href="#DejaVuSans-48"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_7">
+     <g id="line2d_7">
+      <g>
+       <use style="stroke:#000000;stroke-width:0.8;" x="372.524587" xlink:href="#m19daaa7f05" y="239.758125"/>
+      </g>
+     </g>
+     <g id="text_7">
+      <!-- 6000 -->
+      <g transform="translate(359.799587 254.356562)scale(0.1 -0.1)">
+       <defs>
+        <path d="M 33.015625 40.375 
+Q 26.375 40.375 22.484375 35.828125 
+Q 18.609375 31.296875 18.609375 23.390625 
+Q 18.609375 15.53125 22.484375 10.953125 
+Q 26.375 6.390625 33.015625 6.390625 
+Q 39.65625 6.390625 43.53125 10.953125 
+Q 47.40625 15.53125 47.40625 23.390625 
+Q 47.40625 31.296875 43.53125 35.828125 
+Q 39.65625 40.375 33.015625 40.375 
+z
+M 52.59375 71.296875 
+L 52.59375 62.3125 
+Q 48.875 64.0625 45.09375 64.984375 
+Q 41.3125 65.921875 37.59375 65.921875 
+Q 27.828125 65.921875 22.671875 59.328125 
+Q 17.53125 52.734375 16.796875 39.40625 
+Q 19.671875 43.65625 24.015625 45.921875 
+Q 28.375 48.1875 33.59375 48.1875 
+Q 44.578125 48.1875 50.953125 41.515625 
+Q 57.328125 34.859375 57.328125 23.390625 
+Q 57.328125 12.15625 50.6875 5.359375 
+Q 44.046875 -1.421875 33.015625 -1.421875 
+Q 20.359375 -1.421875 13.671875 8.265625 
+Q 6.984375 17.96875 6.984375 36.375 
+Q 6.984375 53.65625 15.1875 63.9375 
+Q 23.390625 74.21875 37.203125 74.21875 
+Q 40.921875 74.21875 44.703125 73.484375 
+Q 48.484375 72.75 52.59375 71.296875 
+z
+" id="DejaVuSans-54"/>
+       </defs>
+       <use xlink:href="#DejaVuSans-54"/>
+       <use x="63.623047" xlink:href="#DejaVuSans-48"/>
+       <use x="127.246094" xlink:href="#DejaVuSans-48"/>
+       <use x="190.869141" xlink:href="#DejaVuSans-48"/>
+      </g>
+     </g>
+    </g>
+    <g id="text_8">
      <!-- Airtime in hours -->
      <g transform="translate(174.411719 268.034687)scale(0.1 -0.1)">
       <defs>
@@ -15419,60 +15532,60 @@ z
    </g>
    <g id="matplotlib.axis_2">
     <g id="ytick_1">
-     <g id="line2d_9">
+     <g id="line2d_8">
       <defs>
        <path d="M 0 0 
 L -3.5 0 
-" id="m97dd3a1b95" style="stroke:#000000;stroke-width:0.8;"/>
+" id="mfff90510e1" style="stroke:#000000;stroke-width:0.8;"/>
       </defs>
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="46.965625" xlink:href="#m97dd3a1b95" y="229.874489"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="46.965625" xlink:href="#mfff90510e1" y="229.904333"/>
       </g>
      </g>
-     <g id="text_10">
+     <g id="text_9">
       <!-- 0 -->
-      <g transform="translate(33.603125 233.673707)scale(0.1 -0.1)">
+      <g transform="translate(33.603125 233.703552)scale(0.1 -0.1)">
        <use xlink:href="#DejaVuSans-48"/>
       </g>
      </g>
     </g>
     <g id="ytick_2">
-     <g id="line2d_10">
+     <g id="line2d_9">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="46.965625" xlink:href="#m97dd3a1b95" y="202.089145"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="46.965625" xlink:href="#mfff90510e1" y="202.114794"/>
       </g>
      </g>
-     <g id="text_11">
+     <g id="text_10">
       <!-- 25 -->
-      <g transform="translate(27.240625 205.888363)scale(0.1 -0.1)">
+      <g transform="translate(27.240625 205.914013)scale(0.1 -0.1)">
        <use xlink:href="#DejaVuSans-50"/>
        <use x="63.623047" xlink:href="#DejaVuSans-53"/>
       </g>
      </g>
     </g>
     <g id="ytick_3">
-     <g id="line2d_11">
+     <g id="line2d_10">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="46.965625" xlink:href="#m97dd3a1b95" y="174.303801"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="46.965625" xlink:href="#mfff90510e1" y="174.325255"/>
       </g>
      </g>
-     <g id="text_12">
+     <g id="text_11">
       <!-- 50 -->
-      <g transform="translate(27.240625 178.103019)scale(0.1 -0.1)">
+      <g transform="translate(27.240625 178.124474)scale(0.1 -0.1)">
        <use xlink:href="#DejaVuSans-53"/>
        <use x="63.623047" xlink:href="#DejaVuSans-48"/>
       </g>
      </g>
     </g>
     <g id="ytick_4">
-     <g id="line2d_12">
+     <g id="line2d_11">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="46.965625" xlink:href="#m97dd3a1b95" y="146.518456"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="46.965625" xlink:href="#mfff90510e1" y="146.535716"/>
       </g>
      </g>
-     <g id="text_13">
+     <g id="text_12">
       <!-- 75 -->
-      <g transform="translate(27.240625 150.317675)scale(0.1 -0.1)">
+      <g transform="translate(27.240625 150.334934)scale(0.1 -0.1)">
        <defs>
         <path d="M 8.203125 72.90625 
 L 55.078125 72.90625 
@@ -15490,14 +15603,14 @@ z
      </g>
     </g>
     <g id="ytick_5">
-     <g id="line2d_13">
+     <g id="line2d_12">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="46.965625" xlink:href="#m97dd3a1b95" y="118.733112"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="46.965625" xlink:href="#mfff90510e1" y="118.746177"/>
       </g>
      </g>
-     <g id="text_14">
+     <g id="text_13">
       <!-- 100 -->
-      <g transform="translate(20.878125 122.532331)scale(0.1 -0.1)">
+      <g transform="translate(20.878125 122.545395)scale(0.1 -0.1)">
        <use xlink:href="#DejaVuSans-49"/>
        <use x="63.623047" xlink:href="#DejaVuSans-48"/>
        <use x="127.246094" xlink:href="#DejaVuSans-48"/>
@@ -15505,14 +15618,14 @@ z
      </g>
     </g>
     <g id="ytick_6">
-     <g id="line2d_14">
+     <g id="line2d_13">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="46.965625" xlink:href="#m97dd3a1b95" y="90.947768"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="46.965625" xlink:href="#mfff90510e1" y="90.956638"/>
       </g>
      </g>
-     <g id="text_15">
+     <g id="text_14">
       <!-- 125 -->
-      <g transform="translate(20.878125 94.746987)scale(0.1 -0.1)">
+      <g transform="translate(20.878125 94.755856)scale(0.1 -0.1)">
        <use xlink:href="#DejaVuSans-49"/>
        <use x="63.623047" xlink:href="#DejaVuSans-50"/>
        <use x="127.246094" xlink:href="#DejaVuSans-53"/>
@@ -15520,14 +15633,14 @@ z
      </g>
     </g>
     <g id="ytick_7">
-     <g id="line2d_15">
+     <g id="line2d_14">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="46.965625" xlink:href="#m97dd3a1b95" y="63.162424"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="46.965625" xlink:href="#mfff90510e1" y="63.167099"/>
       </g>
      </g>
-     <g id="text_16">
+     <g id="text_15">
       <!-- 150 -->
-      <g transform="translate(20.878125 66.961643)scale(0.1 -0.1)">
+      <g transform="translate(20.878125 66.966317)scale(0.1 -0.1)">
        <use xlink:href="#DejaVuSans-49"/>
        <use x="63.623047" xlink:href="#DejaVuSans-53"/>
        <use x="127.246094" xlink:href="#DejaVuSans-48"/>
@@ -15535,21 +15648,21 @@ z
      </g>
     </g>
     <g id="ytick_8">
-     <g id="line2d_16">
+     <g id="line2d_15">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="46.965625" xlink:href="#m97dd3a1b95" y="35.37708"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="46.965625" xlink:href="#mfff90510e1" y="35.37756"/>
       </g>
      </g>
-     <g id="text_17">
+     <g id="text_16">
       <!-- 175 -->
-      <g transform="translate(20.878125 39.176299)scale(0.1 -0.1)">
+      <g transform="translate(20.878125 39.176778)scale(0.1 -0.1)">
        <use xlink:href="#DejaVuSans-49"/>
        <use x="63.623047" xlink:href="#DejaVuSans-55"/>
        <use x="127.246094" xlink:href="#DejaVuSans-53"/>
       </g>
      </g>
     </g>
-    <g id="text_18">
+    <g id="text_17">
      <!-- Size in Gigabytes -->
      <g transform="translate(14.798438 174.314687)rotate(-90)scale(0.1 -0.1)">
       <defs>
@@ -15748,7 +15861,7 @@ z
      </g>
     </g>
    </g>
-   <g id="line2d_17">
+   <g id="line2d_16">
     <defs>
      <path d="M 0 3 
 C 0.795609 3 1.55874 2.683901 2.12132 2.12132 
@@ -15760,101 +15873,100 @@ C -2.683901 -1.55874 -3 -0.795609 -3 0
 C -3 0.795609 -2.683901 1.55874 -2.12132 2.12132 
 C -1.55874 2.683901 -0.795609 3 0 3 
 z
-" id="m7f35efa605" style="stroke:#1f77b4;"/>
+" id="m1f3578c566" style="stroke:#1f77b4;"/>
     </defs>
-    <g clip-path="url(#p3c1650a917)">
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.370888" xlink:href="#m7f35efa605" y="225.247686"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.194152" xlink:href="#m7f35efa605" y="225.772881"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.392441" xlink:href="#m7f35efa605" y="227.315794"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.379509" xlink:href="#m7f35efa605" y="191.069802"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.280365" xlink:href="#m7f35efa605" y="198.118264"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.271744" xlink:href="#m7f35efa605" y="222.342411"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.73298" xlink:href="#m7f35efa605" y="32.201761"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="63.23991" xlink:href="#m7f35efa605" y="229.037939"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.534692" xlink:href="#m7f35efa605" y="218.889949"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.254501" xlink:href="#m7f35efa605" y="220.753699"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.689012" xlink:href="#m7f35efa605" y="180.585028"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="64.258941" xlink:href="#m7f35efa605" y="196.565418"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="66.340972" xlink:href="#m7f35efa605" y="227.514599"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.185531" xlink:href="#m7f35efa605" y="86.541321"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.922648" xlink:href="#m7f35efa605" y="202.078081"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.995928" xlink:href="#m7f35efa605" y="98.994822"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="63.901159" xlink:href="#m7f35efa605" y="163.160199"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="64.662415" xlink:href="#m7f35efa605" y="221.190236"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="65.313319" xlink:href="#m7f35efa605" y="186.805639"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="66.722893" xlink:href="#m7f35efa605" y="199.165654"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="68.488525" xlink:href="#m7f35efa605" y="216.463254"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="64.024443" xlink:href="#m7f35efa605" y="141.624279"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="63.607175" xlink:href="#m7f35efa605" y="145.146263"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.771776" xlink:href="#m7f35efa605" y="229.503318"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="63.677869" xlink:href="#m7f35efa605" y="218.077288"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="110.835227" xlink:href="#m7f35efa605" y="223.226097"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="63.947714" xlink:href="#m7f35efa605" y="222.22635"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.332092" xlink:href="#m7f35efa605" y="229.576255"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="64.740007" xlink:href="#m7f35efa605" y="121.993011"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.263122" xlink:href="#m7f35efa605" y="226.968423"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.271744" xlink:href="#m7f35efa605" y="228.748382"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.224327" xlink:href="#m7f35efa605" y="216.683396"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.573487" xlink:href="#m7f35efa605" y="224.951809"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.845056" xlink:href="#m7f35efa605" y="223.579675"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.702806" xlink:href="#m7f35efa605" y="170.359999"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="64.648621" xlink:href="#m7f35efa605" y="195.035705"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.220016" xlink:href="#m7f35efa605" y="229.763347"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="63.116626" xlink:href="#m7f35efa605" y="224.059707"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.555383" xlink:href="#m7f35efa605" y="228.555325"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.345024" xlink:href="#m7f35efa605" y="229.558254"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="63.521824" xlink:href="#m7f35efa605" y="218.880273"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.803674" xlink:href="#m7f35efa605" y="218.334347"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.254501" xlink:href="#m7f35efa605" y="224.771612"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="65.323665" xlink:href="#m7f35efa605" y="199.853945"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="63.41061" xlink:href="#m7f35efa605" y="216.391539"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.332092" xlink:href="#m7f35efa605" y="227.559429"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.224327" xlink:href="#m7f35efa605" y="212.734626"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.276054" xlink:href="#m7f35efa605" y="229.33333"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.396752" xlink:href="#m7f35efa605" y="229.508116"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.237259" xlink:href="#m7f35efa605" y="227.893125"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="76.030391" xlink:href="#m7f35efa605" y="229.844649"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="74.337178" xlink:href="#m7f35efa605" y="226.924773"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="63.931334" xlink:href="#m7f35efa605" y="174.336549"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.413994" xlink:href="#m7f35efa605" y="226.310851"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.702806" xlink:href="#m7f35efa605" y="220.69186"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.375198" xlink:href="#m7f35efa605" y="207.907556"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.263122" xlink:href="#m7f35efa605" y="228.164014"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="70.124837" xlink:href="#m7f35efa605" y="213.97284"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="63.003687" xlink:href="#m7f35efa605" y="229.874489"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.413994" xlink:href="#m7f35efa605" y="156.529882"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="63.099383" xlink:href="#m7f35efa605" y="190.7298"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.185531" xlink:href="#m7f35efa605" y="229.6723"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.237259" xlink:href="#m7f35efa605" y="229.647025"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.353645" xlink:href="#m7f35efa605" y="223.009937"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="253.809985" xlink:href="#m7f35efa605" y="196.988447"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.306229" xlink:href="#m7f35efa605" y="227.860006"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.357956" xlink:href="#m7f35efa605" y="229.477515"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.625215" xlink:href="#m7f35efa605" y="229.477515"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.25019" xlink:href="#m7f35efa605" y="226.19874"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.228637" xlink:href="#m7f35efa605" y="222.50738"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="65.090029" xlink:href="#m7f35efa605" y="211.971355"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="63.707181" xlink:href="#m7f35efa605" y="227.251278"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.301918" xlink:href="#m7f35efa605" y="229.435077"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="64.332222" xlink:href="#m7f35efa605" y="206.69135"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.310539" xlink:href="#m7f35efa605" y="191.246638"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="73.984569" xlink:href="#m7f35efa605" y="227.821289"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="63.666661" xlink:href="#m7f35efa605" y="196.682359"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.413994" xlink:href="#m7f35efa605" y="224.331314"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.332092" xlink:href="#m7f35efa605" y="228.846242"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.38813" xlink:href="#m7f35efa605" y="218.988979"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.211395" xlink:href="#m7f35efa605" y="217.395717"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.237259" xlink:href="#m7f35efa605" y="162.106945"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="63.060588" xlink:href="#m7f35efa605" y="229.01729"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.183807" xlink:href="#m7f35efa605" y="226.71441"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.258812" xlink:href="#m7f35efa605" y="223.226097"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.413994" xlink:href="#m7f35efa605" y="165.147137"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="64.280494" xlink:href="#m7f35efa605" y="223.464224"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="63.017481" xlink:href="#m7f35efa605" y="222.366341"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.220016" xlink:href="#m7f35efa605" y="222.366341"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="67.535877" xlink:href="#m7f35efa605" y="108.541231"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="366.547443" xlink:href="#m7f35efa605" y="118.733112"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.185531" xlink:href="#m7f35efa605" y="220.647189"/>
+    <g clip-path="url(#p79e52416cd)">
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.369165" xlink:href="#m1f3578c566" y="225.276831"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.192428" xlink:href="#m1f3578c566" y="225.802106"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.390718" xlink:href="#m1f3578c566" y="227.345252"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.377786" xlink:href="#m1f3578c566" y="191.093788"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.278641" xlink:href="#m1f3578c566" y="198.143314"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.27002" xlink:href="#m1f3578c566" y="222.371118"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.731259" xlink:href="#m1f3578c566" y="32.201761"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="63.238191" xlink:href="#m1f3578c566" y="229.067657"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.532969" xlink:href="#m1f3578c566" y="218.918134"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.252777" xlink:href="#m1f3578c566" y="220.782166"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.68729" xlink:href="#m1f3578c566" y="180.607431"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="64.257228" xlink:href="#m1f3578c566" y="196.590233"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="66.339271" xlink:href="#m1f3578c566" y="227.544087"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.183807" xlink:href="#m1f3578c566" y="86.549525"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.920928" xlink:href="#m1f3578c566" y="202.103728"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.994209" xlink:href="#m1f3578c566" y="99.004906"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="63.899445" xlink:href="#m1f3578c566" y="163.179971"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="64.660705" xlink:href="#m1f3578c566" y="221.218769"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="65.311613" xlink:href="#m1f3578c566" y="186.828981"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="66.721195" xlink:href="#m1f3578c566" y="199.190862"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="68.486836" xlink:href="#m1f3578c566" y="216.491074"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="64.022729" xlink:href="#m1f3578c566" y="141.640799"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="63.605458" xlink:href="#m1f3578c566" y="145.163315"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.770055" xlink:href="#m1f3578c566" y="229.533106"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="63.676153" xlink:href="#m1f3578c566" y="218.105351"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="110.833778" xlink:href="#m1f3578c566" y="223.254937"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="63.946" xlink:href="#m1f3578c566" y="222.25504"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.330369" xlink:href="#m1f3578c566" y="229.606054"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="64.738297" xlink:href="#m1f3578c566" y="122.006567"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.261398" xlink:href="#m1f3578c566" y="226.997828"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.27002" xlink:href="#m1f3578c566" y="228.778056"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.222603" xlink:href="#m1f3578c566" y="216.711249"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.571765" xlink:href="#m1f3578c566" y="224.98091"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.843336" xlink:href="#m1f3578c566" y="223.608569"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.701085" xlink:href="#m1f3578c566" y="170.380858"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="64.646911" xlink:href="#m1f3578c566" y="195.060289"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.218292" xlink:href="#m1f3578c566" y="229.793175"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="63.114907" xlink:href="#m1f3578c566" y="224.088674"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.55366" xlink:href="#m1f3578c566" y="228.58497"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.343301" xlink:href="#m1f3578c566" y="229.58805"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="63.520108" xlink:href="#m1f3578c566" y="218.908457"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.801954" xlink:href="#m1f3578c566" y="218.362449"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.252777" xlink:href="#m1f3578c566" y="224.800686"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="65.321958" xlink:href="#m1f3578c566" y="199.879257"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="63.408893" xlink:href="#m1f3578c566" y="216.419348"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.330369" xlink:href="#m1f3578c566" y="227.588924"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.222603" xlink:href="#m1f3578c566" y="212.761882"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.27433" xlink:href="#m1f3578c566" y="229.363092"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.395029" xlink:href="#m1f3578c566" y="229.537905"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.235535" xlink:href="#m1f3578c566" y="227.92267"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="76.028746" xlink:href="#m1f3578c566" y="229.874489"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="74.335523" xlink:href="#m1f3578c566" y="226.954172"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="63.929619" xlink:href="#m1f3578c566" y="174.358008"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.412271" xlink:href="#m1f3578c566" y="226.340157"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.701085" xlink:href="#m1f3578c566" y="220.720318"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.373475" xlink:href="#m1f3578c566" y="207.934083"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.261398" xlink:href="#m1f3578c566" y="228.1936"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="70.123158" xlink:href="#m1f3578c566" y="214.000283"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.412271" xlink:href="#m1f3578c566" y="156.548652"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="63.097664" xlink:href="#m1f3578c566" y="190.753734"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.183807" xlink:href="#m1f3578c566" y="229.702114"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.235535" xlink:href="#m1f3578c566" y="229.676834"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.351922" xlink:href="#m1f3578c566" y="223.038745"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="253.809346" xlink:href="#m1f3578c566" y="197.013326"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.304505" xlink:href="#m1f3578c566" y="227.889546"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.356233" xlink:href="#m1f3578c566" y="229.507299"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.623493" xlink:href="#m1f3578c566" y="229.507299"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.248467" xlink:href="#m1f3578c566" y="226.228029"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.226913" xlink:href="#m1f3578c566" y="222.536112"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="65.088321" xlink:href="#m1f3578c566" y="211.998496"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="63.705466" xlink:href="#m1f3578c566" y="227.280726"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.300194" xlink:href="#m1f3578c566" y="229.464855"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="64.330509" xlink:href="#m1f3578c566" y="206.717694"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.308816" xlink:href="#m1f3578c566" y="191.27065"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="73.982912" xlink:href="#m1f3578c566" y="227.850823"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="63.664945" xlink:href="#m1f3578c566" y="196.707192"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.412271" xlink:href="#m1f3578c566" y="224.360322"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.330369" xlink:href="#m1f3578c566" y="228.875931"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.386407" xlink:href="#m1f3578c566" y="219.017179"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.209671" xlink:href="#m1f3578c566" y="217.423678"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.235535" xlink:href="#m1f3578c566" y="162.126558"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="63.058868" xlink:href="#m1f3578c566" y="229.047005"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.264847" xlink:href="#m1f3578c566" y="226.743777"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.257088" xlink:href="#m1f3578c566" y="223.254937"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.412271" xlink:href="#m1f3578c566" y="165.167209"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="64.278782" xlink:href="#m1f3578c566" y="223.4931"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="63.015762" xlink:href="#m1f3578c566" y="222.395051"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.218292" xlink:href="#m1f3578c566" y="222.395051"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="67.534183" xlink:href="#m1f3578c566" y="108.552757"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="366.547443" xlink:href="#m1f3578c566" y="118.746177"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.183807" xlink:href="#m1f3578c566" y="220.67564"/>
     </g>
    </g>
    <g id="patch_3">
@@ -15877,7 +15989,7 @@ L 381.765625 239.758125
 L 381.765625 22.318125 
 " style="fill:none;stroke:#000000;stroke-linecap:square;stroke-linejoin:miter;stroke-width:0.8;"/>
    </g>
-   <g id="text_19">
+   <g id="text_18">
     <!-- Played/Size for Quin69's Stream -->
     <g transform="translate(117.9325 16.318125)scale(0.12 -0.12)">
      <defs>
@@ -15984,36 +16096,6 @@ Q 73.09375 23.6875 67.984375 14.640625
 Q 62.890625 5.609375 53.21875 1.3125 
 z
 " id="DejaVuSans-81"/>
-      <path d="M 33.015625 40.375 
-Q 26.375 40.375 22.484375 35.828125 
-Q 18.609375 31.296875 18.609375 23.390625 
-Q 18.609375 15.53125 22.484375 10.953125 
-Q 26.375 6.390625 33.015625 6.390625 
-Q 39.65625 6.390625 43.53125 10.953125 
-Q 47.40625 15.53125 47.40625 23.390625 
-Q 47.40625 31.296875 43.53125 35.828125 
-Q 39.65625 40.375 33.015625 40.375 
-z
-M 52.59375 71.296875 
-L 52.59375 62.3125 
-Q 48.875 64.0625 45.09375 64.984375 
-Q 41.3125 65.921875 37.59375 65.921875 
-Q 27.828125 65.921875 22.671875 59.328125 
-Q 17.53125 52.734375 16.796875 39.40625 
-Q 19.671875 43.65625 24.015625 45.921875 
-Q 28.375 48.1875 33.59375 48.1875 
-Q 44.578125 48.1875 50.953125 41.515625 
-Q 57.328125 34.859375 57.328125 23.390625 
-Q 57.328125 12.15625 50.6875 5.359375 
-Q 44.046875 -1.421875 33.015625 -1.421875 
-Q 20.359375 -1.421875 13.671875 8.265625 
-Q 6.984375 17.96875 6.984375 36.375 
-Q 6.984375 53.65625 15.1875 63.9375 
-Q 23.390625 74.21875 37.203125 74.21875 
-Q 40.921875 74.21875 44.703125 73.484375 
-Q 48.484375 72.75 52.59375 71.296875 
-z
-" id="DejaVuSans-54"/>
       <path d="M 10.984375 1.515625 
 L 10.984375 10.5 
 Q 14.703125 8.734375 18.5 7.8125 
@@ -16087,7 +16169,7 @@ z
   </g>
  </g>
  <defs>
-  <clipPath id="p3c1650a917">
+  <clipPath id="p79e52416cd">
    <rect height="217.44" width="334.8" x="46.965625" y="22.318125"/>
   </clipPath>
  </defs>
@@ -16104,7 +16186,7 @@ z
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[75]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[44]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
@@ -16143,7 +16225,7 @@ z
   <rdf:RDF xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:date>2021-02-16T18:23:56.098443</dc:date>
+    <dc:date>2021-02-16T19:04:21.463482</dc:date>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
@@ -16180,15 +16262,15 @@ z
       <defs>
        <path d="M 0 0 
 L 0 3.5 
-" id="m81aa28c82a" style="stroke:#000000;stroke-width:0.8;"/>
+" id="m3845a59e95" style="stroke:#000000;stroke-width:0.8;"/>
       </defs>
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="103.217052" xlink:href="#m81aa28c82a" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="84.691429" xlink:href="#m3845a59e95" y="239.758125"/>
       </g>
      </g>
      <g id="text_1">
-      <!-- $\mathdefault{10^{2}}$ -->
-      <g transform="translate(94.417052 254.356562)scale(0.1 -0.1)">
+      <!-- $\mathdefault{10^{0}}$ -->
+      <g transform="translate(75.891429 254.356562)scale(0.1 -0.1)">
        <defs>
         <path d="M 12.40625 8.296875 
 L 28.515625 8.296875 
@@ -16224,6 +16306,38 @@ Q 6.59375 54.828125 13.0625 64.515625
 Q 19.53125 74.21875 31.78125 74.21875 
 z
 " id="DejaVuSans-48"/>
+       </defs>
+       <use transform="translate(0 0.765625)" xlink:href="#DejaVuSans-49"/>
+       <use transform="translate(63.623047 0.765625)" xlink:href="#DejaVuSans-48"/>
+       <use transform="translate(128.203125 39.046875)scale(0.7)" xlink:href="#DejaVuSans-48"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_2">
+      <g>
+       <use style="stroke:#000000;stroke-width:0.8;" x="159.460131" xlink:href="#m3845a59e95" y="239.758125"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <!-- $\mathdefault{10^{1}}$ -->
+      <g transform="translate(150.660131 254.356562)scale(0.1 -0.1)">
+       <use transform="translate(0 0.684375)" xlink:href="#DejaVuSans-49"/>
+       <use transform="translate(63.623047 0.684375)" xlink:href="#DejaVuSans-48"/>
+       <use transform="translate(128.203125 38.965625)scale(0.7)" xlink:href="#DejaVuSans-49"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_3">
+      <g>
+       <use style="stroke:#000000;stroke-width:0.8;" x="234.228832" xlink:href="#m3845a59e95" y="239.758125"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <!-- $\mathdefault{10^{2}}$ -->
+      <g transform="translate(225.428832 254.356562)scale(0.1 -0.1)">
+       <defs>
         <path d="M 19.1875 8.296875 
 L 53.609375 8.296875 
 L 53.609375 0 
@@ -16255,15 +16369,15 @@ z
       </g>
      </g>
     </g>
-    <g id="xtick_2">
-     <g id="line2d_2">
+    <g id="xtick_4">
+     <g id="line2d_4">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="177.43943" xlink:href="#m81aa28c82a" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="308.997534" xlink:href="#m3845a59e95" y="239.758125"/>
       </g>
      </g>
-     <g id="text_2">
+     <g id="text_4">
       <!-- $\mathdefault{10^{3}}$ -->
-      <g transform="translate(168.63943 254.356562)scale(0.1 -0.1)">
+      <g transform="translate(300.197534 254.356562)scale(0.1 -0.1)">
        <defs>
         <path d="M 40.578125 39.3125 
 Q 47.65625 37.796875 51.625 33 
@@ -16304,335 +16418,274 @@ z
       </g>
      </g>
     </g>
-    <g id="xtick_3">
-     <g id="line2d_3">
-      <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="251.661807" xlink:href="#m81aa28c82a" y="239.758125"/>
-      </g>
-     </g>
-     <g id="text_3">
-      <!-- $\mathdefault{10^{4}}$ -->
-      <g transform="translate(242.861807 254.356562)scale(0.1 -0.1)">
-       <defs>
-        <path d="M 37.796875 64.3125 
-L 12.890625 25.390625 
-L 37.796875 25.390625 
-z
-M 35.203125 72.90625 
-L 47.609375 72.90625 
-L 47.609375 25.390625 
-L 58.015625 25.390625 
-L 58.015625 17.1875 
-L 47.609375 17.1875 
-L 47.609375 0 
-L 37.796875 0 
-L 37.796875 17.1875 
-L 4.890625 17.1875 
-L 4.890625 26.703125 
-z
-" id="DejaVuSans-52"/>
-       </defs>
-       <use transform="translate(0 0.684375)" xlink:href="#DejaVuSans-49"/>
-       <use transform="translate(63.623047 0.684375)" xlink:href="#DejaVuSans-48"/>
-       <use transform="translate(128.203125 38.965625)scale(0.7)" xlink:href="#DejaVuSans-52"/>
-      </g>
-     </g>
-    </g>
-    <g id="xtick_4">
-     <g id="line2d_4">
-      <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="325.884185" xlink:href="#m81aa28c82a" y="239.758125"/>
-      </g>
-     </g>
-     <g id="text_4">
-      <!-- $\mathdefault{10^{5}}$ -->
-      <g transform="translate(317.084185 254.356562)scale(0.1 -0.1)">
-       <defs>
-        <path d="M 10.796875 72.90625 
-L 49.515625 72.90625 
-L 49.515625 64.59375 
-L 19.828125 64.59375 
-L 19.828125 46.734375 
-Q 21.96875 47.46875 24.109375 47.828125 
-Q 26.265625 48.1875 28.421875 48.1875 
-Q 40.625 48.1875 47.75 41.5 
-Q 54.890625 34.8125 54.890625 23.390625 
-Q 54.890625 11.625 47.5625 5.09375 
-Q 40.234375 -1.421875 26.90625 -1.421875 
-Q 22.3125 -1.421875 17.546875 -0.640625 
-Q 12.796875 0.140625 7.71875 1.703125 
-L 7.71875 11.625 
-Q 12.109375 9.234375 16.796875 8.0625 
-Q 21.484375 6.890625 26.703125 6.890625 
-Q 35.15625 6.890625 40.078125 11.328125 
-Q 45.015625 15.765625 45.015625 23.390625 
-Q 45.015625 31 40.078125 35.4375 
-Q 35.15625 39.890625 26.703125 39.890625 
-Q 22.75 39.890625 18.8125 39.015625 
-Q 14.890625 38.140625 10.796875 36.28125 
-z
-" id="DejaVuSans-53"/>
-       </defs>
-       <use transform="translate(0 0.684375)" xlink:href="#DejaVuSans-49"/>
-       <use transform="translate(63.623047 0.684375)" xlink:href="#DejaVuSans-48"/>
-       <use transform="translate(128.203125 38.965625)scale(0.7)" xlink:href="#DejaVuSans-53"/>
-      </g>
-     </g>
-    </g>
     <g id="xtick_5">
      <g id="line2d_5">
       <defs>
        <path d="M 0 0 
 L 0 2 
-" id="md1308db568" style="stroke:#000000;stroke-width:0.6;"/>
+" id="m967ed9b522" style="stroke:#000000;stroke-width:0.6;"/>
       </defs>
       <g>
-       <use style="stroke:#000000;stroke-width:0.6;" x="51.337837" xlink:href="#md1308db568" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.6;" x="54.937971" xlink:href="#m967ed9b522" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_6">
      <g id="line2d_6">
       <g>
-       <use style="stroke:#000000;stroke-width:0.6;" x="64.407748" xlink:href="#md1308db568" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.6;" x="62.183807" xlink:href="#m967ed9b522" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_7">
      <g id="line2d_7">
       <g>
-       <use style="stroke:#000000;stroke-width:0.6;" x="73.680999" xlink:href="#md1308db568" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.6;" x="68.104086" xlink:href="#m967ed9b522" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_8">
      <g id="line2d_8">
       <g>
-       <use style="stroke:#000000;stroke-width:0.6;" x="80.87389" xlink:href="#md1308db568" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.6;" x="73.10961" xlink:href="#m967ed9b522" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_9">
      <g id="line2d_9">
       <g>
-       <use style="stroke:#000000;stroke-width:0.6;" x="86.75091" xlink:href="#md1308db568" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.6;" x="77.445593" xlink:href="#m967ed9b522" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_10">
      <g id="line2d_10">
       <g>
-       <use style="stroke:#000000;stroke-width:0.6;" x="91.71986" xlink:href="#md1308db568" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.6;" x="81.270201" xlink:href="#m967ed9b522" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_11">
      <g id="line2d_11">
       <g>
-       <use style="stroke:#000000;stroke-width:0.6;" x="96.024161" xlink:href="#md1308db568" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.6;" x="107.199051" xlink:href="#m967ed9b522" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_12">
      <g id="line2d_12">
       <g>
-       <use style="stroke:#000000;stroke-width:0.6;" x="99.820822" xlink:href="#md1308db568" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.6;" x="120.365166" xlink:href="#m967ed9b522" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_13">
      <g id="line2d_13">
       <g>
-       <use style="stroke:#000000;stroke-width:0.6;" x="125.560214" xlink:href="#md1308db568" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.6;" x="129.706673" xlink:href="#m967ed9b522" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_14">
      <g id="line2d_14">
       <g>
-       <use style="stroke:#000000;stroke-width:0.6;" x="138.630126" xlink:href="#md1308db568" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.6;" x="136.952509" xlink:href="#m967ed9b522" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_15">
      <g id="line2d_15">
       <g>
-       <use style="stroke:#000000;stroke-width:0.6;" x="147.903376" xlink:href="#md1308db568" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.6;" x="142.872788" xlink:href="#m967ed9b522" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_16">
      <g id="line2d_16">
       <g>
-       <use style="stroke:#000000;stroke-width:0.6;" x="155.096268" xlink:href="#md1308db568" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.6;" x="147.878312" xlink:href="#m967ed9b522" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_17">
      <g id="line2d_17">
       <g>
-       <use style="stroke:#000000;stroke-width:0.6;" x="160.973288" xlink:href="#md1308db568" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.6;" x="152.214295" xlink:href="#m967ed9b522" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_18">
      <g id="line2d_18">
       <g>
-       <use style="stroke:#000000;stroke-width:0.6;" x="165.942238" xlink:href="#md1308db568" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.6;" x="156.038902" xlink:href="#m967ed9b522" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_19">
      <g id="line2d_19">
       <g>
-       <use style="stroke:#000000;stroke-width:0.6;" x="170.246538" xlink:href="#md1308db568" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.6;" x="181.967752" xlink:href="#m967ed9b522" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_20">
      <g id="line2d_20">
       <g>
-       <use style="stroke:#000000;stroke-width:0.6;" x="174.0432" xlink:href="#md1308db568" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.6;" x="195.133867" xlink:href="#m967ed9b522" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_21">
      <g id="line2d_21">
       <g>
-       <use style="stroke:#000000;stroke-width:0.6;" x="199.782592" xlink:href="#md1308db568" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.6;" x="204.475374" xlink:href="#m967ed9b522" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_22">
      <g id="line2d_22">
       <g>
-       <use style="stroke:#000000;stroke-width:0.6;" x="212.852504" xlink:href="#md1308db568" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.6;" x="211.72121" xlink:href="#m967ed9b522" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_23">
      <g id="line2d_23">
       <g>
-       <use style="stroke:#000000;stroke-width:0.6;" x="222.125754" xlink:href="#md1308db568" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.6;" x="217.641489" xlink:href="#m967ed9b522" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_24">
      <g id="line2d_24">
       <g>
-       <use style="stroke:#000000;stroke-width:0.6;" x="229.318645" xlink:href="#md1308db568" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.6;" x="222.647014" xlink:href="#m967ed9b522" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_25">
      <g id="line2d_25">
       <g>
-       <use style="stroke:#000000;stroke-width:0.6;" x="235.195665" xlink:href="#md1308db568" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.6;" x="226.982996" xlink:href="#m967ed9b522" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_26">
      <g id="line2d_26">
       <g>
-       <use style="stroke:#000000;stroke-width:0.6;" x="240.164615" xlink:href="#md1308db568" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.6;" x="230.807604" xlink:href="#m967ed9b522" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_27">
      <g id="line2d_27">
       <g>
-       <use style="stroke:#000000;stroke-width:0.6;" x="244.468916" xlink:href="#md1308db568" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.6;" x="256.736454" xlink:href="#m967ed9b522" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_28">
      <g id="line2d_28">
       <g>
-       <use style="stroke:#000000;stroke-width:0.6;" x="248.265577" xlink:href="#md1308db568" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.6;" x="269.902569" xlink:href="#m967ed9b522" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_29">
      <g id="line2d_29">
       <g>
-       <use style="stroke:#000000;stroke-width:0.6;" x="274.004969" xlink:href="#md1308db568" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.6;" x="279.244076" xlink:href="#m967ed9b522" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_30">
      <g id="line2d_30">
       <g>
-       <use style="stroke:#000000;stroke-width:0.6;" x="287.074881" xlink:href="#md1308db568" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.6;" x="286.489912" xlink:href="#m967ed9b522" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_31">
      <g id="line2d_31">
       <g>
-       <use style="stroke:#000000;stroke-width:0.6;" x="296.348131" xlink:href="#md1308db568" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.6;" x="292.410191" xlink:href="#m967ed9b522" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_32">
      <g id="line2d_32">
       <g>
-       <use style="stroke:#000000;stroke-width:0.6;" x="303.541023" xlink:href="#md1308db568" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.6;" x="297.415716" xlink:href="#m967ed9b522" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_33">
      <g id="line2d_33">
       <g>
-       <use style="stroke:#000000;stroke-width:0.6;" x="309.418043" xlink:href="#md1308db568" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.6;" x="301.751698" xlink:href="#m967ed9b522" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_34">
      <g id="line2d_34">
       <g>
-       <use style="stroke:#000000;stroke-width:0.6;" x="314.386993" xlink:href="#md1308db568" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.6;" x="305.576306" xlink:href="#m967ed9b522" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_35">
      <g id="line2d_35">
       <g>
-       <use style="stroke:#000000;stroke-width:0.6;" x="318.691293" xlink:href="#md1308db568" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.6;" x="331.505156" xlink:href="#m967ed9b522" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_36">
      <g id="line2d_36">
       <g>
-       <use style="stroke:#000000;stroke-width:0.6;" x="322.487955" xlink:href="#md1308db568" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.6;" x="344.671271" xlink:href="#m967ed9b522" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_37">
      <g id="line2d_37">
       <g>
-       <use style="stroke:#000000;stroke-width:0.6;" x="348.227347" xlink:href="#md1308db568" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.6;" x="354.012778" xlink:href="#m967ed9b522" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_38">
      <g id="line2d_38">
       <g>
-       <use style="stroke:#000000;stroke-width:0.6;" x="361.297259" xlink:href="#md1308db568" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.6;" x="361.258614" xlink:href="#m967ed9b522" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_39">
      <g id="line2d_39">
       <g>
-       <use style="stroke:#000000;stroke-width:0.6;" x="370.570509" xlink:href="#md1308db568" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.6;" x="367.178893" xlink:href="#m967ed9b522" y="239.758125"/>
       </g>
      </g>
     </g>
     <g id="xtick_40">
      <g id="line2d_40">
       <g>
-       <use style="stroke:#000000;stroke-width:0.6;" x="377.7634" xlink:href="#md1308db568" y="239.758125"/>
+       <use style="stroke:#000000;stroke-width:0.6;" x="372.184417" xlink:href="#m967ed9b522" y="239.758125"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_41">
+     <g id="line2d_41">
+      <g>
+       <use style="stroke:#000000;stroke-width:0.6;" x="376.5204" xlink:href="#m967ed9b522" y="239.758125"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_42">
+     <g id="line2d_42">
+      <g>
+       <use style="stroke:#000000;stroke-width:0.6;" x="380.345008" xlink:href="#m967ed9b522" y="239.758125"/>
       </g>
      </g>
     </g>
@@ -16959,60 +17012,86 @@ z
    </g>
    <g id="matplotlib.axis_2">
     <g id="ytick_1">
-     <g id="line2d_41">
+     <g id="line2d_43">
       <defs>
        <path d="M 0 0 
 L -3.5 0 
-" id="mca54fa24a2" style="stroke:#000000;stroke-width:0.8;"/>
+" id="mf313487c33" style="stroke:#000000;stroke-width:0.8;"/>
       </defs>
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="46.965625" xlink:href="#mca54fa24a2" y="229.874489"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="46.965625" xlink:href="#mf313487c33" y="229.904333"/>
       </g>
      </g>
      <g id="text_6">
       <!-- 0 -->
-      <g transform="translate(33.603125 233.673707)scale(0.1 -0.1)">
+      <g transform="translate(33.603125 233.703552)scale(0.1 -0.1)">
        <use xlink:href="#DejaVuSans-48"/>
       </g>
      </g>
     </g>
     <g id="ytick_2">
-     <g id="line2d_42">
+     <g id="line2d_44">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="46.965625" xlink:href="#mca54fa24a2" y="202.089145"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="46.965625" xlink:href="#mf313487c33" y="202.114794"/>
       </g>
      </g>
      <g id="text_7">
       <!-- 25 -->
-      <g transform="translate(27.240625 205.888363)scale(0.1 -0.1)">
+      <g transform="translate(27.240625 205.914013)scale(0.1 -0.1)">
+       <defs>
+        <path d="M 10.796875 72.90625 
+L 49.515625 72.90625 
+L 49.515625 64.59375 
+L 19.828125 64.59375 
+L 19.828125 46.734375 
+Q 21.96875 47.46875 24.109375 47.828125 
+Q 26.265625 48.1875 28.421875 48.1875 
+Q 40.625 48.1875 47.75 41.5 
+Q 54.890625 34.8125 54.890625 23.390625 
+Q 54.890625 11.625 47.5625 5.09375 
+Q 40.234375 -1.421875 26.90625 -1.421875 
+Q 22.3125 -1.421875 17.546875 -0.640625 
+Q 12.796875 0.140625 7.71875 1.703125 
+L 7.71875 11.625 
+Q 12.109375 9.234375 16.796875 8.0625 
+Q 21.484375 6.890625 26.703125 6.890625 
+Q 35.15625 6.890625 40.078125 11.328125 
+Q 45.015625 15.765625 45.015625 23.390625 
+Q 45.015625 31 40.078125 35.4375 
+Q 35.15625 39.890625 26.703125 39.890625 
+Q 22.75 39.890625 18.8125 39.015625 
+Q 14.890625 38.140625 10.796875 36.28125 
+z
+" id="DejaVuSans-53"/>
+       </defs>
        <use xlink:href="#DejaVuSans-50"/>
        <use x="63.623047" xlink:href="#DejaVuSans-53"/>
       </g>
      </g>
     </g>
     <g id="ytick_3">
-     <g id="line2d_43">
+     <g id="line2d_45">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="46.965625" xlink:href="#mca54fa24a2" y="174.303801"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="46.965625" xlink:href="#mf313487c33" y="174.325255"/>
       </g>
      </g>
      <g id="text_8">
       <!-- 50 -->
-      <g transform="translate(27.240625 178.103019)scale(0.1 -0.1)">
+      <g transform="translate(27.240625 178.124474)scale(0.1 -0.1)">
        <use xlink:href="#DejaVuSans-53"/>
        <use x="63.623047" xlink:href="#DejaVuSans-48"/>
       </g>
      </g>
     </g>
     <g id="ytick_4">
-     <g id="line2d_44">
+     <g id="line2d_46">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="46.965625" xlink:href="#mca54fa24a2" y="146.518456"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="46.965625" xlink:href="#mf313487c33" y="146.535716"/>
       </g>
      </g>
      <g id="text_9">
       <!-- 75 -->
-      <g transform="translate(27.240625 150.317675)scale(0.1 -0.1)">
+      <g transform="translate(27.240625 150.334934)scale(0.1 -0.1)">
        <defs>
         <path d="M 8.203125 72.90625 
 L 55.078125 72.90625 
@@ -17030,14 +17109,14 @@ z
      </g>
     </g>
     <g id="ytick_5">
-     <g id="line2d_45">
+     <g id="line2d_47">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="46.965625" xlink:href="#mca54fa24a2" y="118.733112"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="46.965625" xlink:href="#mf313487c33" y="118.746177"/>
       </g>
      </g>
      <g id="text_10">
       <!-- 100 -->
-      <g transform="translate(20.878125 122.532331)scale(0.1 -0.1)">
+      <g transform="translate(20.878125 122.545395)scale(0.1 -0.1)">
        <use xlink:href="#DejaVuSans-49"/>
        <use x="63.623047" xlink:href="#DejaVuSans-48"/>
        <use x="127.246094" xlink:href="#DejaVuSans-48"/>
@@ -17045,14 +17124,14 @@ z
      </g>
     </g>
     <g id="ytick_6">
-     <g id="line2d_46">
+     <g id="line2d_48">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="46.965625" xlink:href="#mca54fa24a2" y="90.947768"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="46.965625" xlink:href="#mf313487c33" y="90.956638"/>
       </g>
      </g>
      <g id="text_11">
       <!-- 125 -->
-      <g transform="translate(20.878125 94.746987)scale(0.1 -0.1)">
+      <g transform="translate(20.878125 94.755856)scale(0.1 -0.1)">
        <use xlink:href="#DejaVuSans-49"/>
        <use x="63.623047" xlink:href="#DejaVuSans-50"/>
        <use x="127.246094" xlink:href="#DejaVuSans-53"/>
@@ -17060,14 +17139,14 @@ z
      </g>
     </g>
     <g id="ytick_7">
-     <g id="line2d_47">
+     <g id="line2d_49">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="46.965625" xlink:href="#mca54fa24a2" y="63.162424"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="46.965625" xlink:href="#mf313487c33" y="63.167099"/>
       </g>
      </g>
      <g id="text_12">
       <!-- 150 -->
-      <g transform="translate(20.878125 66.961643)scale(0.1 -0.1)">
+      <g transform="translate(20.878125 66.966317)scale(0.1 -0.1)">
        <use xlink:href="#DejaVuSans-49"/>
        <use x="63.623047" xlink:href="#DejaVuSans-53"/>
        <use x="127.246094" xlink:href="#DejaVuSans-48"/>
@@ -17075,14 +17154,14 @@ z
      </g>
     </g>
     <g id="ytick_8">
-     <g id="line2d_48">
+     <g id="line2d_50">
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="46.965625" xlink:href="#mca54fa24a2" y="35.37708"/>
+       <use style="stroke:#000000;stroke-width:0.8;" x="46.965625" xlink:href="#mf313487c33" y="35.37756"/>
       </g>
      </g>
      <g id="text_13">
       <!-- 175 -->
-      <g transform="translate(20.878125 39.176299)scale(0.1 -0.1)">
+      <g transform="translate(20.878125 39.176778)scale(0.1 -0.1)">
        <use xlink:href="#DejaVuSans-49"/>
        <use x="63.623047" xlink:href="#DejaVuSans-55"/>
        <use x="127.246094" xlink:href="#DejaVuSans-53"/>
@@ -17255,7 +17334,7 @@ z
      </g>
     </g>
    </g>
-   <g id="line2d_49">
+   <g id="line2d_51">
     <defs>
      <path d="M 0 3 
 C 0.795609 3 1.55874 2.683901 2.12132 2.12132 
@@ -17267,101 +17346,100 @@ C -2.683901 -1.55874 -3 -0.795609 -3 0
 C -3 0.795609 -2.683901 1.55874 -2.12132 2.12132 
 C -1.55874 2.683901 -0.795609 3 0 3 
 z
-" id="mf36152f415" style="stroke:#1f77b4;"/>
+" id="mb537a3b9ed" style="stroke:#1f77b4;"/>
     </defs>
-    <g clip-path="url(#p4b1977bb38)">
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="132.101884" xlink:href="#mf36152f415" y="225.247686"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="73.680999" xlink:href="#mf36152f415" y="225.772881"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="135.233896" xlink:href="#mf36152f415" y="227.315794"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="133.391431" xlink:href="#mf36152f415" y="191.069802"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="114.063022" xlink:href="#mf36152f415" y="198.118264"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="111.674199" xlink:href="#mf36152f415" y="222.342411"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="164.288831" xlink:href="#mf36152f415" y="32.201761"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="184.709591" xlink:href="#mf36152f415" y="229.037939"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="150.607243" xlink:href="#mf36152f415" y="218.889949"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="106.289316" xlink:href="#mf36152f415" y="220.753699"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="161.716783" xlink:href="#mf36152f415" y="180.585028"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="206.126302" xlink:href="#mf36152f415" y="196.565418"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="228.336812" xlink:href="#mf36152f415" y="227.514599"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="64.407748" xlink:href="#mf36152f415" y="86.541321"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="173.501433" xlink:href="#mf36152f415" y="202.078081"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="176.457596" xlink:href="#mf36152f415" y="98.994822"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="200.103334" xlink:href="#mf36152f415" y="163.160199"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="211.793037" xlink:href="#mf36152f415" y="221.190236"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="219.244716" xlink:href="#mf36152f415" y="186.805639"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="231.154305" xlink:href="#mf36152f415" y="199.165654"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="241.697841" xlink:href="#mf36152f415" y="216.463254"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="202.308121" xlink:href="#mf36152f415" y="141.624279"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="194.143227" xlink:href="#mf36152f415" y="145.146263"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="166.399471" xlink:href="#mf36152f415" y="229.503318"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="195.680273" xlink:href="#mf36152f415" y="218.077288"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="307.457802" xlink:href="#mf36152f415" y="223.226097"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="200.953728" xlink:href="#mf36152f415" y="222.22635"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="125.560214" xlink:href="#mf36152f415" y="229.576255"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="212.777202" xlink:href="#mf36152f415" y="121.993011"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="109.094072" xlink:href="#mf36152f415" y="226.968423"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="111.674199" xlink:href="#mf36152f415" y="228.748382"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="93.943802" xlink:href="#mf36152f415" y="216.683396"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="153.780396" xlink:href="#mf36152f415" y="224.951809"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="170.044441" xlink:href="#mf36152f415" y="223.579675"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="162.546008" xlink:href="#mf36152f415" y="170.359999"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="211.614885" xlink:href="#mf36152f415" y="195.035705"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="91.71986" xlink:href="#mf36152f415" y="229.763347"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="180.803409" xlink:href="#mf36152f415" y="224.059707"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="152.338363" xlink:href="#mf36152f415" y="228.555325"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="127.891425" xlink:href="#mf36152f415" y="229.558254"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="192.184231" xlink:href="#mf36152f415" y="218.880273"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="168.036984" xlink:href="#mf36152f415" y="218.334347"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="106.289316" xlink:href="#mf36152f415" y="224.771612"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="219.350287" xlink:href="#mf36152f415" y="199.853945"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="189.438769" xlink:href="#mf36152f415" y="216.391539"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="125.560214" xlink:href="#mf36152f415" y="227.559429"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="93.943802" xlink:href="#mf36152f415" y="212.734626"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="112.890734" xlink:href="#mf36152f415" y="229.33333"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="135.825369" xlink:href="#mf36152f415" y="229.508116"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="99.820822" xlink:href="#mf36152f415" y="227.893125"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="266.990884" xlink:href="#mf36152f415" y="229.844649"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="262.794307" xlink:href="#mf36152f415" y="226.924773"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="200.657067" xlink:href="#mf36152f415" y="174.336549"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="138.088359" xlink:href="#mf36152f415" y="226.310851"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="162.546008" xlink:href="#mf36152f415" y="220.69186"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="132.753106" xlink:href="#mf36152f415" y="207.907556"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="109.094072" xlink:href="#mf36152f415" y="228.164014"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="249.11041" xlink:href="#mf36152f415" y="213.97284"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="176.755299" xlink:href="#mf36152f415" y="229.874489"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="138.088359" xlink:href="#mf36152f415" y="156.529882"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="180.217313" xlink:href="#mf36152f415" y="190.7298"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="64.407748" xlink:href="#mf36152f415" y="229.6723"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="99.820822" xlink:href="#mf36152f415" y="229.647025"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="129.356876" xlink:href="#mf36152f415" y="223.009937"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="351.634856" xlink:href="#mf36152f415" y="196.988447"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="120.321519" xlink:href="#mf36152f415" y="227.860006"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="130.065352" xlink:href="#mf36152f415" y="229.477515"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="157.577058" xlink:href="#mf36152f415" y="229.477515"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="104.789772" xlink:href="#mf36152f415" y="226.19874"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="96.024161" xlink:href="#mf36152f415" y="222.50738"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="216.877576" xlink:href="#mf36152f415" y="211.971355"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="196.296697" xlink:href="#mf36152f415" y="227.251278"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="119.359228" xlink:href="#mf36152f415" y="229.435077"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="207.232332" xlink:href="#mf36152f415" y="206.69135"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="121.255914" xlink:href="#mf36152f415" y="191.246638"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="261.847157" xlink:href="#mf36152f415" y="227.821289"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="195.441431" xlink:href="#mf36152f415" y="196.682359"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="138.088359" xlink:href="#mf36152f415" y="224.331314"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="125.560214" xlink:href="#mf36152f415" y="228.846242"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="134.631367" xlink:href="#mf36152f415" y="218.988979"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="86.75091" xlink:href="#mf36152f415" y="217.395717"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="99.820822" xlink:href="#mf36152f415" y="162.106945"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="178.858286" xlink:href="#mf36152f415" y="229.01729"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.183807" xlink:href="#mf36152f415" y="226.71441"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="107.72219" xlink:href="#mf36152f415" y="223.226097"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="138.088359" xlink:href="#mf36152f415" y="165.147137"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="206.455563" xlink:href="#mf36152f415" y="223.464224"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="177.277854" xlink:href="#mf36152f415" y="222.366341"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="91.71986" xlink:href="#mf36152f415" y="222.366341"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="236.439251" xlink:href="#mf36152f415" y="108.541231"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="366.547443" xlink:href="#mf36152f415" y="118.733112"/>
-     <use style="fill:#1f77b4;stroke:#1f77b4;" x="64.407748" xlink:href="#mf36152f415" y="220.647189"/>
+    <g clip-path="url(#pa39382bf3c)">
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="130.376215" xlink:href="#mb537a3b9ed" y="225.276831"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="71.525314" xlink:href="#mb537a3b9ed" y="225.802106"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="133.53128" xlink:href="#mb537a3b9ed" y="227.345252"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="131.675253" xlink:href="#mb537a3b9ed" y="191.093788"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="112.204575" xlink:href="#mb537a3b9ed" y="198.143314"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="109.798168" xlink:href="#mb537a3b9ed" y="222.371118"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="162.800078" xlink:href="#mb537a3b9ed" y="32.201761"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="183.371148" xlink:href="#mb537a3b9ed" y="229.067657"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="149.017785" xlink:href="#mb537a3b9ed" y="218.918134"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="104.373649" xlink:href="#mb537a3b9ed" y="220.782166"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="160.209098" xlink:href="#mb537a3b9ed" y="180.607431"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="204.945499" xlink:href="#mb537a3b9ed" y="196.590233"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="227.319493" xlink:href="#mb537a3b9ed" y="227.544087"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.183807" xlink:href="#mb537a3b9ed" y="86.549525"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="172.080491" xlink:href="#mb537a3b9ed" y="202.103728"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="175.058413" xlink:href="#mb537a3b9ed" y="99.004906"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="198.878199" xlink:href="#mb537a3b9ed" y="163.179971"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="210.653946" xlink:href="#mb537a3b9ed" y="221.218769"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="218.160474" xlink:href="#mb537a3b9ed" y="186.828981"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="230.157725" xlink:href="#mb537a3b9ed" y="199.190862"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="240.778868" xlink:href="#mb537a3b9ed" y="216.491074"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="201.099214" xlink:href="#mb537a3b9ed" y="141.640799"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="192.874222" xlink:href="#mb537a3b9ed" y="145.163315"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="164.926253" xlink:href="#mb537a3b9ed" y="229.533106"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="194.422582" xlink:href="#mb537a3b9ed" y="218.105351"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="307.022864" xlink:href="#mb537a3b9ed" y="223.254937"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="199.734853" xlink:href="#mb537a3b9ed" y="222.25504"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="123.786394" xlink:href="#mb537a3b9ed" y="229.606054"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="211.645355" xlink:href="#mb537a3b9ed" y="122.006567"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="107.199051" xlink:href="#mb537a3b9ed" y="226.997828"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="109.798168" xlink:href="#mb537a3b9ed" y="228.778056"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="91.937265" xlink:href="#mb537a3b9ed" y="216.711249"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="152.214295" xlink:href="#mb537a3b9ed" y="224.98091"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="168.598053" xlink:href="#mb537a3b9ed" y="223.608569"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="161.044427" xlink:href="#mb537a3b9ed" y="170.380858"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="210.474482" xlink:href="#mb537a3b9ed" y="195.060289"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="89.696953" xlink:href="#mb537a3b9ed" y="229.793175"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="179.436214" xlink:href="#mb537a3b9ed" y="224.088674"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="150.761647" xlink:href="#mb537a3b9ed" y="228.58497"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="126.134764" xlink:href="#mb537a3b9ed" y="229.58805"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="190.900806" xlink:href="#mb537a3b9ed" y="218.908457"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="166.575819" xlink:href="#mb537a3b9ed" y="218.362449"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="104.373649" xlink:href="#mb537a3b9ed" y="224.800686"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="218.266822" xlink:href="#mb537a3b9ed" y="199.879257"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="188.135136" xlink:href="#mb537a3b9ed" y="216.419348"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="123.786394" xlink:href="#mb537a3b9ed" y="227.588924"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="91.937265" xlink:href="#mb537a3b9ed" y="212.761882"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="111.023658" xlink:href="#mb537a3b9ed" y="229.363092"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="134.127107" xlink:href="#mb537a3b9ed" y="229.537905"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="97.857544" xlink:href="#mb537a3b9ed" y="227.92267"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="266.258084" xlink:href="#mb537a3b9ed" y="229.874489"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="262.030617" xlink:href="#mb537a3b9ed" y="226.954172"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="199.436008" xlink:href="#mb537a3b9ed" y="174.358008"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="136.406754" xlink:href="#mb537a3b9ed" y="226.340157"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="161.044427" xlink:href="#mb537a3b9ed" y="220.720318"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="131.03223" xlink:href="#mb537a3b9ed" y="207.934083"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="107.199051" xlink:href="#mb537a3b9ed" y="228.1936"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="248.245999" xlink:href="#mb537a3b9ed" y="214.000283"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="136.406754" xlink:href="#mb537a3b9ed" y="156.548652"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="178.845804" xlink:href="#mb537a3b9ed" y="190.753734"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.183807" xlink:href="#mb537a3b9ed" y="229.702114"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="97.857544" xlink:href="#mb537a3b9ed" y="229.676834"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="127.611001" xlink:href="#mb537a3b9ed" y="223.038745"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="351.52509" xlink:href="#mb537a3b9ed" y="197.013326"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="118.509138" xlink:href="#mb537a3b9ed" y="227.889546"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="128.324692" xlink:href="#mb537a3b9ed" y="229.507299"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="156.038902" xlink:href="#mb537a3b9ed" y="229.507299"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="102.863068" xlink:href="#mb537a3b9ed" y="226.228029"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="94.032936" xlink:href="#mb537a3b9ed" y="222.536112"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="215.77591" xlink:href="#mb537a3b9ed" y="211.998496"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="195.043543" xlink:href="#mb537a3b9ed" y="227.280726"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="117.539764" xlink:href="#mb537a3b9ed" y="229.464855"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="206.059671" xlink:href="#mb537a3b9ed" y="206.717694"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="119.450411" xlink:href="#mb537a3b9ed" y="191.27065"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="261.076496" xlink:href="#mb537a3b9ed" y="227.850823"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="194.181981" xlink:href="#mb537a3b9ed" y="196.707192"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="136.406754" xlink:href="#mb537a3b9ed" y="224.360322"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="123.786394" xlink:href="#mb537a3b9ed" y="228.875931"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="132.924316" xlink:href="#mb537a3b9ed" y="219.017179"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="84.691429" xlink:href="#mb537a3b9ed" y="217.423678"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="97.857544" xlink:href="#mb537a3b9ed" y="162.126558"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="177.476774" xlink:href="#mb537a3b9ed" y="229.047005"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="108.26379" xlink:href="#mb537a3b9ed" y="226.743777"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="105.81707" xlink:href="#mb537a3b9ed" y="223.254937"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="136.406754" xlink:href="#mb537a3b9ed" y="165.167209"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="205.277184" xlink:href="#mb537a3b9ed" y="223.4931"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="175.884708" xlink:href="#mb537a3b9ed" y="222.395051"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="89.696953" xlink:href="#mb537a3b9ed" y="222.395051"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="235.481571" xlink:href="#mb537a3b9ed" y="108.552757"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="366.547443" xlink:href="#mb537a3b9ed" y="118.746177"/>
+     <use style="fill:#1f77b4;stroke:#1f77b4;" x="62.183807" xlink:href="#mb537a3b9ed" y="220.67564"/>
     </g>
    </g>
    <g id="patch_3">
@@ -17588,7 +17666,7 @@ z
   </g>
  </g>
  <defs>
-  <clipPath id="p4b1977bb38">
+  <clipPath id="pa39382bf3c">
    <rect height="217.44" width="334.8" x="46.965625" y="22.318125"/>
   </clipPath>
  </defs>
